@@ -25,6 +25,7 @@ controls:
     minimum_version: "26.0"
 name: Engineering
 policies:
+  - path: ../lib/windows/policies/all-windows-updates-installed.policies.yml
 queries:
   - path: ../lib/all/queries/collect-failed-login-attempts.queries.yml
 software:
