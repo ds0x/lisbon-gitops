@@ -12,12 +12,14 @@ agent_options:
 controls:
   scripts:
     - path: ../lib/macos/scripts/remove-zoom-artifacts.script.sh
+    - path: ../lib/macos/scripts/set-dns-cloudflare.sh
   macos_settings:
     custom_settings:
       - path: ../lib/macos/configuration-profiles/disable-bluetooth-file-sharing.mobileconfig
 
 name: New Hires
 policies:
+  - path: ../lib/macos/policies/dns-resolvers.policies.yml
 queries:
   - path: ../lib/all/queries/collect-failed-login-attempts.queries.yml
 software:
