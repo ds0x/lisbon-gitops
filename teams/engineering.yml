@@ -29,6 +29,8 @@ policies:
 queries:
   - path: ../lib/all/queries/collect-failed-login-attempts.queries.yml
 software:
+  packages:
+    - path: ../lib/windows/software/cloudflare-warp.yml
 team_settings:
   secrets:
     - secret: "$FLEET_ENGINEERING_ENROLL_SECRET"
