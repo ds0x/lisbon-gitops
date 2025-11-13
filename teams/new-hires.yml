@@ -15,12 +15,14 @@ controls:
   macos_settings:
     custom_settings:
       - path: ../lib/macos/configuration-profiles/disable-bluetooth-file-sharing.mobileconfig
-      
+
 name: New Hires
 policies:
 queries:
   - path: ../lib/all/queries/collect-failed-login-attempts.queries.yml
 software:
+  packages:
+    - path: ../lib/macos/software/zoom.yml
 team_settings:
   secrets:
     - secret: "$FLEET_NEW_HIRES_ENROLL_SECRET"
