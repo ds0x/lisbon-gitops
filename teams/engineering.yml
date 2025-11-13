@@ -13,7 +13,8 @@ controls:
   scripts:
     - path: ../lib/macos/scripts/remove-zoom-artifacts.script.sh
   macos_settings:
-    - path: ../lib/macos/settings/disable-bluetooth-file-sharing.mobileconfig
+    custom_settings:
+      - path: ../lib/macos/configuration-profiles/disable-bluetooth-file-sharing.mobileconfig
 name: Engineering
 policies:
 queries:
