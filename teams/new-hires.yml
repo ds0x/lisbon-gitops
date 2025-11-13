@@ -14,7 +14,8 @@ controls:
     - path: ../lib/macos/scripts/remove-zoom-artifacts.script.sh
   macos_settings:
     custom_settings:
-      - path: ../lib/macos/configuration-profiles/disable-bluetooth-file-sharing.mobileconfig"
+      - path: ../lib/macos/configuration-profiles/disable-bluetooth-file-sharing.mobileconfig
+      
 name: New Hires
 policies:
 queries:
