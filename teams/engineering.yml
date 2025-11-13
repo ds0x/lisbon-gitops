@@ -10,11 +10,20 @@
 agent_options:
   path: ../lib/agent-options.yml
 controls:
+  enable_disk_encryption: true
   scripts:
     - path: ../lib/macos/scripts/remove-zoom-artifacts.script.sh
+    - path: ../lib/macos/scripts/remove-zoom-artifacts.set-wallpaper.ps1
   macos_settings:
     custom_settings:
       - path: ../lib/macos/configuration-profiles/disable-bluetooth-file-sharing.mobileconfig
+      - path: ../lib/macos/configuration-profiles/passcode-settings-ddm.json
+  macos_updates:
+    deadline: "2025-10-31"
+    minimum_version: "26.0"
+  ipados_updates:
+    deadline: "2025-12-31"
+    minimum_version: "26.0"
 name: Engineering
 policies:
 queries:
