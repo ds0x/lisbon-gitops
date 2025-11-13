@@ -2,6 +2,5 @@
 # Documentation: https://fleetdm.com/docs/configuration/yaml-files#packages
 
 url: https://zoom.us/client/latest/ZoomInstallerIT.pkg
-self_service: true
 post_install_script:
   path: ../scripts/zoom-config.sh
