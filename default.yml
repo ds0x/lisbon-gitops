@@ -11,6 +11,8 @@ agent_options:
   path: ./lib/agent-options.yml
 controls: # This cannot be set here and in no-team.yml
 org_settings:
+  macos_setup:
+    enable_end_user_authentication: true
   server_settings:
     server_url: $FLEET_URL
   org_info:
