@@ -9,7 +9,6 @@ policies:
 queries:
 agent_options:
   path: ./lib/agent-options.yml
-controls: # This cannot be set here and in no-team.yml
 org_settings:
   server_settings:
     server_url: $FLEET_URL
@@ -26,5 +25,6 @@ org_settings:
       entity_id: fleet
       idp_name: Okta
       metadata_url: https://trial-5568133.okta.com/app/exkxzb4y1mD65dJih697/sso/saml/metadata
+controls: # This cannot be set here and in no-team.yml
   macos_setup:
     enable_end_user_authentication: true
