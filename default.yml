@@ -20,3 +20,5 @@ org_settings:
   features:
     enable_host_users: true
     enable_software_inventory: true
+  mdm:
+    end_user_license_agreement: ./lib/eula.pdf
