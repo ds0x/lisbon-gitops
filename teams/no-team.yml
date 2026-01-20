@@ -7,6 +7,11 @@
 name: No team
 policies:
 controls: # This cannot be set here and in default.yml
+mdm
+  volume_purchasing_program:
+    - location: Fleet (Crystal Skyline)
+      teams:
+        - No team
 software:
   app_store_apps:
     - app_store_id: "430255202"
