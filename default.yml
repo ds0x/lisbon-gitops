@@ -26,9 +26,23 @@ org_settings:
       idp_name: Okta
       metadata_url: https://trial-5568133.okta.com/app/exkxzb4y1mD65dJih697/sso/saml/metadata
     volume_purchasing_program:
-      - location: Fleet (Crystal Skyline)
+      - location: "Fleet (Crystal Skyline)"
         teams:
-          - No team
+          - "No team"
 controls: # This cannot be set here and in no-team.yml
   macos_setup:
     enable_end_user_authentication: true
+software:
+  app_store_apps:
+    - app_store_id: "430255202"
+      platform: darwin
+      setup_experience: true
+    - app_store_id: "430255202"
+       platform: ios
+       setup_experience: true
+    - app_store_id: "430255202"
+       platform: ipados
+       setup_experience: true
+    - app_store_id: "com.evo.inware"
+        platform: android
+        setup_experience: true
