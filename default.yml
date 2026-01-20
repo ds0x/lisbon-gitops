@@ -28,7 +28,7 @@ org_settings:
     volume_purchasing_program:
       - location: "Fleet (Crystal Skyline)"
         teams:
-          - "All teams"
+          - "No team"
 controls: # This cannot be set here and in no-team.yml
   macos_setup:
     enable_end_user_authentication: true
