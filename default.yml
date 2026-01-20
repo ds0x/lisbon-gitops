@@ -29,20 +29,20 @@ org_settings:
       - location: "Fleet (Crystal Skyline)"
         teams:
           - "No team"
+  software:
+    app_store_apps:
+      - app_store_id: "430255202"
+        platform: darwin
+        setup_experience: true
+      - app_store_id: "430255202"
+         platform: ios
+         setup_experience: true
+      - app_store_id: "430255202"
+         platform: ipados
+         setup_experience: true
+      - app_store_id: "com.evo.inware"
+          platform: android
+          setup_experience: true
 controls: # This cannot be set here and in no-team.yml
   macos_setup:
     enable_end_user_authentication: true
-software:
-  app_store_apps:
-    - app_store_id: "430255202"
-      platform: darwin
-      setup_experience: true
-    - app_store_id: "430255202"
-       platform: ios
-       setup_experience: true
-    - app_store_id: "430255202"
-       platform: ipados
-       setup_experience: true
-    - app_store_id: "com.evo.inware"
-        platform: android
-        setup_experience: true
