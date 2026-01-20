@@ -25,10 +25,6 @@ org_settings:
       entity_id: fleet
       idp_name: Okta
       metadata_url: https://trial-5568133.okta.com/app/exkxzb4y1mD65dJih697/sso/saml/metadata
-  volume_purchasing_program:
-      - location: Fleet (Crystal Skyline)
-        teams:
-          - All teams
 controls: # This cannot be set here and in no-team.yml
   macos_setup:
     enable_end_user_authentication: true
