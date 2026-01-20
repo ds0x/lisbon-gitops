@@ -34,12 +34,6 @@ org_settings:
       - app_store_id: "430255202"
         platform: darwin
         setup_experience: true
-      - app_store_id: "430255202"
-         platform: ios
-         setup_experience: true
-      - app_store_id: "430255202"
-         platform: ipados
-         setup_experience: true
       - app_store_id: "com.evo.inware"
           platform: android
           setup_experience: true
