@@ -29,7 +29,6 @@ org_settings:
       - location: "Fleet (Crystal Skyline)"
         teams:
           - "No team"
-          - "All teams"
 controls: # This cannot be set here and in no-team.yml
   macos_setup:
     enable_end_user_authentication: true
