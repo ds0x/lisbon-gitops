@@ -7,7 +7,7 @@
 name: No team
 policies:
 controls: # This cannot be set here and in default.yml
-mdm
+mdm:
   volume_purchasing_program:
     - location: Fleet (Crystal Skyline)
       teams:
