@@ -8,3 +8,7 @@ name: No team
 policies:
 controls: # This cannot be set here and in default.yml
 software:
+  app_store_apps:
+    - app_store_id: "430255202"
+      platform: macos
+      setup_experience: true
