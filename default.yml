@@ -19,6 +19,8 @@ org_settings:
   features:
     enable_host_users: true
     enable_software_inventory: true
+  macos_setup:
+    macos_setup_assistant: ./lib/macos/enrollment-profiles/automatic-enrollment.dep.json
   mdm:
     end_user_license_agreement: ./lib/eula.pdf
     end_user_authentication:
