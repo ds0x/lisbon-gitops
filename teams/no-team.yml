@@ -7,6 +7,8 @@
 name: No team
 policies:
 controls: # This cannot be set here and in default.yml
+macos_setup:
+  macos_setup_assistant: ./lib/macos/enrollment-profiles/automatic-enrollment.dep.json
 software:
   app_store_apps:
     - app_store_id: "430255202"
