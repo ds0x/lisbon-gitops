@@ -15,9 +15,11 @@ software:
       self_service: true
     - app_store_id: "430255202"
       platform: ios
+      setup_experience: true
       self_service: true
     - app_store_id: "430255202"
       platform: ipados
+      setup_experience: true
       self_service: true
     - app_store_id: "com.evo.inware"
       platform: android
