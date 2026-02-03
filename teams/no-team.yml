@@ -6,23 +6,17 @@
 
 name: No team
 policies:
-  - name: "Install Transmit"
-    install_software:
-      slug: "transmit/darwin"
-      # version: ">=1.0.0"
-      setup_experience: true
 controls: # This cannot be set here and in default.yml
 software:
   app_store_apps:
     - app_store_id: "430255202"
-      platform: darwin
       setup_experience: true
-    - app_store_id: "430255202"
-      platform: ios
-      setup_experience: true
+      self_service: true
     - app_store_id: "com.evo.inware"
       platform: android
       setup_experience: true
-    - app_store_id: "430255202"
-      platform: ipados
+      self_service: true
+  fleet_maintained_apps:
+    - slug: transmit/darwin # Privileges for macOS
       setup_experience: true
+      self_service: true
