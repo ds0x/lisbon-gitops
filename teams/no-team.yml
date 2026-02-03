@@ -6,6 +6,11 @@
 
 name: No team
 policies:
+  - name: "Install Transmit"
+    install_software:
+      slug: "transmit/darwin"
+      # version: ">=1.0.0"
+      setup_experience: true
 controls: # This cannot be set here and in default.yml
 software:
   app_store_apps:
