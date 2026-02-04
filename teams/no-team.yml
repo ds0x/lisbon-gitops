@@ -18,13 +18,9 @@ controls: # This cannot be set here and in default.yml
       - path: ../lib/macos/configuration-profiles/self-service.mobileconfig
 software:
   app_store_apps:
-    - app_store_id: "430255202"
-      platform: ios
-      setup_experience: true
+    - app_store_id: "311421597"
       self_service: true
-    - app_store_id: "430255202"
-      platform: ipados
-      setup_experience: true
+    - app_store_id: "311421597"
       self_service: true
     - app_store_id: "430255202"
       platform: darwin
