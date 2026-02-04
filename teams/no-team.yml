@@ -7,9 +7,6 @@
 name: No team
 policies:
 controls: # This cannot be set here and in default.yml
-  macos_settings:
-    custom_settings:
-      - path: ../lib/ios-pados/configuration-profiles/self-service.mobileconfig
 software:
   app_store_apps:
     - app_store_id: "430255202"
