@@ -37,3 +37,9 @@ controls: # This cannot be set here and in no-team.yml
   macos_settings:
     custom_settings:
       - path: ../lib/macos/configuration-profiles/self-service.mobileconfig
+  ios_settings:
+    custom_settings:
+      - path: ../lib/macos/configuration-profiles/self-service.mobileconfig
+  ipados_settings:
+    custom_settings:
+      - path: ../lib/macos/configuration-profiles/self-service.mobileconfig     
