@@ -33,4 +33,7 @@ org_settings:
           - "No team"
 controls: # This cannot be set here and in no-team.yml
   macos_setup:
-    enable_end_user_authentication: true
+    enable_end_user_authentication: false
+  macos_settings:
+    custom_settings:
+      - path: ../lib/ios-ipados/configuration-profiles/self-service.mobileconfig
