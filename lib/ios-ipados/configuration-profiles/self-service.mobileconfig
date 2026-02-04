@@ -20339,7 +20339,7 @@
 		</dict>
 	</array>
 	<key>PayloadDisplayName</key>
-	<string>ds Self Service</string>
+	<string>Self-service</string>
 	<key>PayloadIdentifier</key>
 	<string>xyz.dontpanic.ds.fleet.selfservice.webclip</string>
 	<key>PayloadOrganization</key>
