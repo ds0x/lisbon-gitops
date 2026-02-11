@@ -32,3 +32,4 @@ org_settings:
         teams:
           - "No team"
 controls: # This cannot be set here and in no-team.yml
+  windows_enabled_and_configured: true
