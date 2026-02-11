@@ -7,6 +7,7 @@
 name: No team
 policies:
 controls: # This cannot be set here and in default.yml
+  windows_enabled_and_configured: true
   macos_settings:
     custom_settings:
       - path: ../lib/macos/configuration-profiles/self-service.mobileconfig
