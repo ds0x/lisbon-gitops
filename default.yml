@@ -8,7 +8,7 @@
 policies:
   # macOS policies
   - path: lib/macos/policies/update-safari.yml
-  - path: lib/macos/policies/macos-device-health-policy.yml
+  - path: lib/macos/policies/macos-device-health.policies.yml
   # Linux policies
   #- path: ../lib/linux/policies/check-fleet-desktop-extension-enabled.yml
 queries:
