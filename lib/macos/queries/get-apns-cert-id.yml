@@ -1,0 +1,9 @@
+- name: Get APNs certificate ID by topic
+  automations_enabled: false
+  description: Retrieves ID of APNs certivicate for macOS devices.
+  discard_data: false
+  interval: 300
+  logging: snapshot
+  observer_can_run: true
+  platform: "darwin"
+  query: SELECT topic FROM mdm
