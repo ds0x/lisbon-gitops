@@ -1,0 +1,9 @@
+- name: Detect APNs certificate by topic
+  automations_enabled: false
+  description: Detects macOS devices that are enrolled using an invalid APNs certificate.
+  discard_data: false
+  interval: 300
+  logging: snapshot
+  observer_can_run: true
+  platform: "darwin"
+  query: SELECT topic FROM mdm WHERE topic NOT LIKE 'com.apple.mgmt.External.9f63b75d-1c5a-4453-b616-e5ebcceae962';
