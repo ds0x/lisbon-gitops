@@ -14,6 +14,7 @@ controls:
   scripts:
     - path: ../lib/macos/scripts/remove-zoom-artifacts.script.sh
     - path: ../lib/windows/scripts/default-exe-install-script.ps1
+    - path: ../lib/windows/scripts/rename-host.ps1
   macos_settings:
     custom_settings:
       - path: ../lib/macos/configuration-profiles/passcode-settings-ddm.json
