@@ -16,6 +16,7 @@ controls: # This cannot be set here and in default.yml
     custom_settings:
       - path: ../lib/macos/configuration-profiles/self-service.mobileconfig
       - path: ../lib/macos/configuration-profiles/lock-screen-message.mobileconfig
+      - path: ../lib/macos/declaration-profiles/swupd-settings.mobileconfig
   ipados_settings:
     custom_settings:
       - path: ../lib/macos/configuration-profiles/self-service.mobileconfig
