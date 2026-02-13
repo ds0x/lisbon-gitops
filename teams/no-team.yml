@@ -14,6 +14,7 @@ controls: # This cannot be set here and in default.yml
       - path: ../lib/macos/configuration-profiles/AppleScript-PPPC.mobileconfig
       - path: ../lib/ios/configuration-profiles/lock-screen-message.mobileconfig
       - path: ../lib/ios/declaration-profiles/swupd-settings.json
+software:
   app_store_apps:
     - app_store_id: "311421597"
       self_service: true
