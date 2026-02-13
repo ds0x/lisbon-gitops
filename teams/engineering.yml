@@ -29,10 +29,12 @@ policies:
 queries:
   - path: ../lib/all/queries/collect-failed-login-attempts.queries.yml
 software:
-  - slug: 1password/windows
-    self_service: true
-  - slug: vlc/windows
-    self_service: true
+  fleet_maintained_apps:
+    - slug: 1password/windows
+      self_service: true
+      setup_experience: true
+    - slug: vlc/windows
+      self_service: true
 team_settings:
   secrets:
     - secret: "$FLEET_ENGINEERING_ENROLL_SECRET"
