@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadDisplayName</key>
+			<string>Privacy Preferences Policy Control</string>
+			<key>PayloadIdentifier</key>
+			<string>com.apple.TCC.configuration-profile-policy.F85C8B22-9325-40D8-9941-7DC64096264C</string>
+			<key>PayloadType</key>
+			<string>com.apple.TCC.configuration-profile-policy</string>
+			<key>PayloadUUID</key>
+			<string>F85C8B22-9325-40D8-9941-7DC64096264C</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>Services</key>
+			<dict>
+				<key>Accessibility</key>
+				<array>
+					<dict>
+						<key>Allowed</key>
+						<true/>
+						<key>Authorization</key>
+						<string>Allow</string>
+						<key>CodeRequirement</key>
+						<string>identifier "com.apple.osascript" and anchor apple</string>
+						<key>Identifier</key>
+						<string>/usr/bin/osascript </string>
+						<key>IdentifierType</key>
+						<string>path</string>
+						<key>StaticCode</key>
+						<false/>
+					</dict>
+				</array>
+				<key>AppleEvents</key>
+				<array>
+					<dict>
+						<key>AEReceiverCodeRequirement</key>
+						<string>identifier "com.apple.systempreferences" and anchor apple</string>
+						<key>AEReceiverIdentifier</key>
+						<string>com.apple.systempreferences</string>
+						<key>AEReceiverIdentifierType</key>
+						<string>bundleID</string>
+						<key>Authorization</key>
+						<string>Allow</string>
+						<key>CodeRequirement</key>
+						<string>identifier "com.apple.osascript" and anchor apple</string>
+						<key>Identifier</key>
+						<string>/usr/bin/osascript</string>
+						<key>IdentifierType</key>
+						<string>path</string>
+						<key>StaticCode</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>AEReceiverCodeRequirement</key>
+						<string>identifier "com.apple.Safari" and anchor apple</string>
+						<key>AEReceiverIdentifier</key>
+						<string>com.apple.safari</string>
+						<key>AEReceiverIdentifierType</key>
+						<string>bundleID</string>
+						<key>Authorization</key>
+						<string>Allow</string>
+						<key>CodeRequirement</key>
+						<string>identifier "com.apple.osascript" and anchor apple</string>
+						<key>Identifier</key>
+						<string>/usr/bin/osascript</string>
+						<key>IdentifierType</key>
+						<string>path</string>
+						<key>StaticCode</key>
+						<false/>
+					</dict>
+				</array>
+				<key>SystemPolicyAppBundles</key>
+				<array>
+					<dict>
+						<key>Allowed</key>
+						<true/>
+						<key>Authorization</key>
+						<string>Allow</string>
+						<key>CodeRequirement</key>
+						<string>identifier "com.apple.osascript" and anchor apple</string>
+						<key>Identifier</key>
+						<string>/usr/bin/osascript</string>
+						<key>IdentifierType</key>
+						<string>path</string>
+						<key>StaticCode</key>
+						<false/>
+					</dict>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<key>PayloadDisplayName</key>
+	<string>AppleScript PPPC</string>
+	<key>PayloadIdentifier</key>
+	<string>xyz.dontpanic.ds.fleet.pppc.osascript</string>
+	<key>PayloadOrganization</key>
+	<string>ds-fleet</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>9F7D866A-0815-487F-82C5-971698C2C013</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+</dict>
+</plist>
