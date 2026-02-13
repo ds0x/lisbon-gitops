@@ -1,0 +1,9 @@
+- name: Get hardware information
+  automations_enabled: false
+  description: Retrieves ID of APNs certivicate for macOS devices.
+  discard_data: false
+  interval: 300
+  logging: snapshot
+  observer_can_run: true
+  platform: "darwin"
+  query: SELECT hostname, cpu_brand, physical_memory FROM system_info
