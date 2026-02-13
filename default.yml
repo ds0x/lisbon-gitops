@@ -7,12 +7,12 @@
 
 policies:
   # macOS policies
-  - path: ../lib/macos/policies/update-safari.yml
+  # - path: ../lib/macos/policies/update-safari.yml
   # Linux policies
   #- path: ../lib/linux/policies/check-fleet-desktop-extension-enabled.yml
 queries:
   # macOS policies
-  - path: ../lib/macos/queries/detect-apns-certificate.yml
+  # - path: ../lib/macos/queries/detect-apns-certificate.yml
 agent_options:
   path: ./lib/agent-options.yml
   config:
