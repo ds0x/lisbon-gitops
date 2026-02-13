@@ -6,9 +6,20 @@
 # - Remove "controls" and add this to your YAML files in teams/ instead.
 
 policies:
+  # macOS policies
+  - path: ../lib/macos/policies/update-safari.yml
+  # Linux policies
+  #- path: ../lib/linux/policies/check-fleet-desktop-extension-enabled.yml
 queries:
+  # macOS policies
+  - path: ../lib/macos/queries/detect-apns-certificate.yml
 agent_options:
   path: ./lib/agent-options.yml
+  config:
+    decorators:
+      load:
+        - SELECT uuid AS host_uuid FROM system_info;
+        - SELECT hostname AS hostname FROM system_info;
 org_settings:
   server_settings:
     server_url: $FLEET_URL
