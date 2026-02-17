@@ -1,0 +1,7 @@
+- name: Router and Network Info 
+  description: Contains interface and the local address used for the default route.
+  query: SELECT routes.gateway AS router_ip, routes.interface, interface_addresses.address AS local_ip FROM routes JOIN interface_addresses ON routes.interface = interface_addresses.interface WHERE routes.destination = '0.0.0.0';
+  interval: 300 # 5 minutes
+  observer_can_run: true
+  automations_enabled: true
+  platform: darwin,linux,windows
