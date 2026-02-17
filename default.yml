@@ -14,7 +14,7 @@ policies:
 queries:
   - path: ./lib/macos/queries/detect-apns-certificate.yml
   - path: ./lib/all/queries/hw-info.yml
-  - path: ../lib/all/queries/router-address.yml
+  - path: ./lib/all/queries/router-address.yml
 agent_options:
   path: ./lib/agent-options.yml
   config:
