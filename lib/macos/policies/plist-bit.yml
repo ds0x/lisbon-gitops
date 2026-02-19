@@ -1,0 +1,8 @@
+- name: Check the value of plist key.
+  query:  SELECT value FROM preferences WHERE domain LIKE '%com.mactivate.fleet.bit%' AND key LIKE '%bitValue%';
+  critical: false
+  description: Checks for the bitValue of com.mactivate.fleet.bit.
+  resolution: Please run bitFix from Self Service.
+  platform: darwin
+  # run_script:
+  #   path: ../scripts/bitFix.sh
