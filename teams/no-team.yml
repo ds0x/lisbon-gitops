@@ -7,15 +7,6 @@
 name: No team
 policies:
 controls: # This cannot be set here and in default.yml
-  macos_setup:
-    macos_setup_assistant: ../lib/macos/enrollment-profiles/automatic-enrollment.dep.json
-  windows_enabled_and_configured: true
-  macos_settings:
-    custom_settings:
-      - path: ../lib/macos/configuration-profiles/self-service.mobileconfig
-      - path: ../lib/macos/configuration-profiles/AppleScript-PPPC.mobileconfig
-      - path: ../lib/ios/configuration-profiles/lock-screen-message.mobileconfig
-      - path: ../lib/ios/declaration-profiles/swupd-settings.json
 software:
   app_store_apps:
     - app_store_id: "311421597"
