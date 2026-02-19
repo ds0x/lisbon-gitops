@@ -1,7 +1,7 @@
 {
   "profile_name": "LS Only",
   "allow_pairing": true,
-  "is_supervised": true
+  "is_supervised": true,
   "is_mdm_removable": false,
   "org_magic": "1",
   "language": "en",
