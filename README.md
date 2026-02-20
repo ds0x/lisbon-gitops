@@ -1,4 +1,4 @@
-# ds Fleet GitOps (Don't Panic)
+# ds Fleet GitOps (Declarative Management)
 
 This is the current repository for ds' demo [Fleet](https://fleetdm.com) environment with a GitOps workflow.
 
