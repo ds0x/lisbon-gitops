@@ -28,7 +28,7 @@ org_settings:
   server_settings:
     server_url: $FLEET_URL
   org_info:
-    org_name: "Don't Panic (ds)"
+    org_name: "Declarative Management (ds)"
   secrets:
     - secret: "$FLEET_GLOBAL_ENROLL_SECRET"
   features:
