@@ -14,6 +14,7 @@ policies:
   #- path: ../lib/linux/policies/check-fleet-desktop-extension-enabled.yml
 queries:
   - path: ./lib/macos/queries/detect-apns-certificate.yml
+  - path: ./lib/macos/queries/detect-apple-intelligence.yml
   - path: ./lib/all/queries/hw-info.yml
   - path: ./lib/all/queries/router-address.yml
 agent_options:
