@@ -20,8 +20,6 @@
 				<key>Accessibility</key>
 				<array>
 					<dict>
-						<key>Allowed</key>
-						<true/>
 						<key>Authorization</key>
 						<string>Allow</string>
 						<key>CodeRequirement</key>
@@ -76,8 +74,6 @@
 				<key>SystemPolicyAppBundles</key>
 				<array>
 					<dict>
-						<key>Allowed</key>
-						<true/>
 						<key>Authorization</key>
 						<string>Allow</string>
 						<key>CodeRequirement</key>
