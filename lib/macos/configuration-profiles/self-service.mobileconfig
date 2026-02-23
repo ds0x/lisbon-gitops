@@ -9515,7 +9515,7 @@
 			<key>PayloadDisplayName</key>
 			<string>Web Clip</string>
 			<key>PayloadIdentifier</key>
-			<string>com.apple.webClip.managed.0536A0F5-D5E1-45ED-8539-1A6763001970</string>
+			<string>com.apple.webClip.managed.49C262FA-F6C5-4ECD-A411-EE97570BA933</string>
 			<key>PayloadType</key>
 			<string>com.apple.webClip.managed</string>
 			<key>PayloadUUID</key>
@@ -9539,7 +9539,7 @@
 	<key>PayloadScope</key>
 	<string>User</string>
 	<key>PayloadUUID</key>
-	<string>663D0370-8375-4E5C-89DD-37A5F059BAEB</string>
+	<string>3B602A68-A70B-47AA-83FC-6A2D9F45CAB6</string>
 	<key>PayloadVersion</key>
 	<integer>1</integer>
 </dict>
