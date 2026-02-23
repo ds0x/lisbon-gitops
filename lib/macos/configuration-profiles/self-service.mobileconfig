@@ -9536,6 +9536,8 @@
 	<string>ds-fleet</string>
 	<key>PayloadType</key>
 	<string>Configuration</string>
+	<key>PayloadScope</key>
+	<string>User</string>
 	<key>PayloadUUID</key>
 	<string>663D0370-8375-4E5C-89DD-37A5F059BAEB</string>
 	<key>PayloadVersion</key>
