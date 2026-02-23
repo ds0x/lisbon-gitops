@@ -9525,13 +9525,13 @@
 			<key>TargetApplicationBundleIdentifier</key>
 			<string>com.apple.mobilesafari</string>
 			<key>URL</key>
-			<string>https://dontpanic.xyz/device/$FLEET_VAR_HOST_UUID/self-service</string>
+			<string>https://declarative.management/device/$FLEET_VAR_HOST_UUID/self-service</string>
 		</dict>
 	</array>
 	<key>PayloadDisplayName</key>
 	<string>ds Self Service</string>
 	<key>PayloadIdentifier</key>
-	<string>xyz.dontpanic.ds.fleet.selfservice.webclip</string>
+	<string>management.declarative.ds.fleet.selfservice.webclip</string>
 	<key>PayloadOrganization</key>
 	<string>ds-fleet</string>
 	<key>PayloadType</key>
