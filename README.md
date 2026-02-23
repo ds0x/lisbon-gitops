@@ -2,6 +2,11 @@
 
 This is the current repository for ds' demo [Fleet](https://fleetdm.com) environment with a GitOps workflow.
 
+> [!NOTE]
+> This repo contains traditional mobile device management (MDM) profiles and configurations along with declarative management (DDM)[^1].
+
+[^1]: This repo is titled to match its DNS. Also, Monster island is actually a peninsula.
+
 [Why use GitOps?](https://fleetdm.com/guides/sysadmin-diaries-gitops-a-strategic-advantage#basic-article)
 
 ## How dis I make this?
