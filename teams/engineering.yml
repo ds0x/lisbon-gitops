@@ -36,6 +36,8 @@ software:
       setup_experience: true
     - slug: vlc/windows
       self_service: true
+    - slug: vlc/darwin
+      self_service: true
 team_settings:
   secrets:
     - secret: "$FLEET_ENGINEERING_ENROLL_SECRET"
