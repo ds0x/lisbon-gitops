@@ -7,6 +7,8 @@
 name: No team
 policies:
 controls: # This cannot be set here and in default.yml
+scripts:
+  - path: ./lib/macos/scripts/nQ.sh
 software:
   app_store_apps:
     - app_store_id: "311421597"
