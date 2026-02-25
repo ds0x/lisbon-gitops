@@ -1,0 +1,8 @@
+- name: Network Quality
+  query: SELECT * FROM file_contents WHERE path='/tmp/nQ.txt';
+  critical: false
+  description: Devices have their connections checked periodically to ensure bandwidth and latency are optimal.
+  resolution: Run the nQ.sh script to resolve.
+  platform: darwin
+  run_script:
+    path: ../scripts/nQ.sh
