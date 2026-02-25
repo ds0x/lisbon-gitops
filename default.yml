@@ -18,8 +18,6 @@ queries:
   - path: ./lib/macos/queries/detect-apple-intelligence.yml
   - path: ./lib/all/queries/hw-info.yml
   - path: ./lib/all/queries/router-address.yml
-scripts:
-  - path: ./lib/macos/scripts/nQ.sh
 agent_options:
   path: ./lib/agent-options.yml
   config:
