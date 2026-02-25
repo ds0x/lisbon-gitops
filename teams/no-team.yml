@@ -10,8 +10,6 @@ policies:
 controls: # This cannot be set here and in default.yml
   scripts:
     - path: ../lib/macos/scripts/nQ.sh
-  macos_setup:
-    macos_setup_assistant: ../lib/macos/enrollment-profiles/automatic-enrollment.dep.json
   windows_enabled_and_configured: true
   macos_settings:
     custom_settings:
