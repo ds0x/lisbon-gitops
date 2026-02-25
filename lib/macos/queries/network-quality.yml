@@ -1,0 +1,9 @@
+- name: Network Quality
+  automations_enabled: false
+  description: Retrieves the most recent return from nQ.sh.
+  discard_data: false
+  interval: 300
+  logging: snapshot
+  observer_can_run: true
+  platform: "darwin"
+  query: SELECT * FROM file_contents WHERE path='/tmp/nQ.txt';
