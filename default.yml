@@ -25,8 +25,6 @@ agent_options:
         - SELECT uuid AS host_uuid FROM system_info;
         - SELECT hostname AS hostname FROM system_info;
 org_settings:
-  macos_setup:
-    macos_setup_assistant: ./lib/macos/enrollment-profiles/automatic-enrollment.dep.json
   server_settings:
     server_url: $FLEET_URL
   org_info:
@@ -37,6 +35,8 @@ org_settings:
     enable_host_users: true
     enable_software_inventory: true
   mdm:
+    macos_setup:
+      macos_setup_assistant: "/github/workspace/lib/macos/enrollment-profiles/automatic-enrollment.dep.json"
     end_user_license_agreement: ./lib/eula.pdf
     end_user_authentication:
       entity_id: fleet
