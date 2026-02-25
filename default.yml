@@ -36,7 +36,7 @@ org_settings:
     enable_software_inventory: true
   mdm:
     macos_setup:
-      macos_setup_assistant: "/github/workspace/lib/macos/enrollment-profiles/automatic-enrollment.dep.json"
+      macos_setup_assistant: ./lib/macos/enrollment-profiles/automatic-enrollment.dep.json
     end_user_license_agreement: ./lib/eula.pdf
     end_user_authentication:
       entity_id: fleet
