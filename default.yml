@@ -10,7 +10,6 @@ policies:
   - path: ./lib/macos/policies/update-safari.yml
   - path: ./lib/macos/policies/macos-device-health.policies.yml
   - path: ./lib/macos/policies/plist-bit.yml
-  - path: ./lib/macos/policies/network-quality.yml
   # Linux policies
   #- path: ../lib/linux/policies/check-fleet-desktop-extension-enabled.yml
 queries:
