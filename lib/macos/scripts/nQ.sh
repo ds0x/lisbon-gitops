@@ -1,0 +1,1 @@
+networkQuality > /tmp/nQ.txt 
