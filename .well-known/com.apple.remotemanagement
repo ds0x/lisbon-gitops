@@ -1,8 +1,0 @@
-{
-    "Servers": [
-    {
-        "Version": "mdm-byod", # byod is ADUE, change to mdm-adde for ADDE
-        "BaseURL": "$FLEET_URL/api/mdm/apple/account_driven_enroll"
-    }
-    ]
-}
