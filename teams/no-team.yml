@@ -6,7 +6,6 @@
 
 name: No team
 policies:
-  - path: ../lib/macos/policies/network-quality.yml
 controls: # This cannot be set here and in default.yml
 software:
   app_store_apps:
