@@ -50,8 +50,6 @@ org_settings:
         teams:
           - "No team"
 controls: # This cannot be set here and in no-team.yml
-  scripts:
-    - path: "${GITHUB_WORKSPACE}/lib/macos/scripts/nQ.sh"
   windows_enabled_and_configured: true
   macos_settings:
     macos_setup_assistant: ./lib/macos/enrollment-profiles/automatic-enrollment.dep.json
