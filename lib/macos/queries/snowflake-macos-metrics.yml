@@ -1,5 +1,5 @@
 # Thanks to Tom Larkin (https://t-lark.github.io/posts/building_endpoint_performance_metrics/)
-- name: SF macOS Compute
+- name: macOS Compute
   automations_enabled: false
   description: Extended chart to show statistics about enrolled Macs.
   discard_data: false
@@ -7,4 +7,43 @@
   logging: snapshot
   observer_can_run: true
   platform: "darwin"
-  query: SELECT p.cmdline, p.cwd, p.name, p.path, p.pid, p.on_disk, p.disk_bytes_read, p.disk_bytes_written, p.resident_size, p.wired_size, p.start_time, p.total_size as ram_used_bytes, p.uid, p.user_time, ci.model, ci.number_of_cores, ci.logical_processors, ci.max_clock_speed, ci.number_of_efficiency_cores, ci.number_of_performance_cores, CAST(ROUND(((total_size * 1.0) / (1024 * 1024)), 2) as text) AS total_ram_used_mb, cpu_time.percent_cpu_sys, cpu_time.percent_cpu_user, cpu_time.percent_cpu_idle, cpu_time.steal as steal, cpu_time.core as core FROM processes as p,(SELECT (  SUM(user) + SUM(nice) + SUM(system) + SUM(idle) * 1.0) AS tsb, SUM(COALESCE(idle, 0)) + SUM(COALESCE(iowait, 0)) AS itsb, printf(ROUND((CAST(SUM(system) AS FLOAT)/(SUM(cpu_time.idle)+SUM(cpu_time.system)+SUM(cpu_time.user)))*100,2)) AS percent_cpu_sys, printf(ROUND((CAST(SUM(user) AS FLOAT)/(SUM(idle)+SUM(system)+SUM(user)))*100,2)) AS percent_cpu_user, printf(ROUND((CAST(SUM(idle) AS FLOAT)/(SUM(idle)+SUM(system)+SUM(user)))*100,2)) AS percent_cpu_idle, steal, core, user, idle, system FROM cpu_time) AS cpu_timecross join cpu_info as ci;
+  query: SELECT
+  p.pid,
+  p.name,
+  p.path,
+  p.cmdline,
+  p.uid,
+  p.parent,
+
+  -- CPU times (microseconds)
+  p.user_time,
+  p.system_time,
+  (p.user_time + p.system_time) AS total_cpu_time_us,
+
+  -- Resident memory (bytes)
+  p.resident_size,
+  ROUND(p.resident_size / (1024.0 * 1024.0), 2) AS resident_size_mb,
+
+  -- System CPU core count
+  ci.cpu_count,
+
+  -- Approximate CPU percent (lifetime average)
+  CASE
+    WHEN p.user_time + p.system_time > 0 THEN
+      ROUND(
+        ((p.user_time + p.system_time) / 1000000.0) /
+        (ps.uptime * ci.cpu_count) * 100.0,
+        2
+      )
+    ELSE 0
+  END AS approx_cpu_percent
+
+FROM processes p
+CROSS JOIN cpu_info ci
+CROSS JOIN uptime ps
+
+WHERE p.state = 'R'
+  OR p.state = 'S'
+
+ORDER BY approx_cpu_percent DESC
+LIMIT 50;
