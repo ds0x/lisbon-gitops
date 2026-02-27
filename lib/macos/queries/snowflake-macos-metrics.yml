@@ -1,5 +1,5 @@
 # Thanks to Tom Larkin (https://t-lark.github.io/posts/building_endpoint_performance_metrics/)
-- name: ❄️ macOS Compute
+- name: SF macOS Compute
   automations_enabled: false
   description: Extended chart to show statistics about enrolled Macs.
   discard_data: false
