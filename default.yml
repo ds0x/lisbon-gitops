@@ -19,7 +19,8 @@ queries:
   - path: ./lib/macos/queries/snowflake-macos-metrics.yml
   - path: ./lib/all/queries/hw-info.yml
   - path: ./lib/all/queries/router-address.yml
-  - path: ./lib/all/queries/remote-access.yml  
+  - path: ./lib/all/queries/remote-access.yml
+  - path: ./lib/all/queries/detect-mounted-volumes.yml
 agent_options:
   path: ./lib/agent-options.yml
   config:
