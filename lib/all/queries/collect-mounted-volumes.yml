@@ -1,11 +1,12 @@
 - name: Collect mounted volumes
   description: Collects connected volumes for macOS, Windows, and Linux.
-  query: SELECT 
-    path, 
-    type, 
-    ROUND((blocks_available * blocks_size * 1e-9), 2) AS free_gb, 
-    ROUND((blocks_available * 1.0 / blocks) * 100, 2) AS free_pc 
-  FROM mounts;
+  query: 
+    SELECT 
+      path, 
+      type, 
+      ROUND((blocks_available * blocks_size * 1e-9), 2) AS free_gb, 
+      ROUND((blocks_available * 1.0 / blocks) * 100, 2) AS free_pc 
+    FROM mounts;
   interval: 360 # 6 minutes
   observer_can_run: true
   automations_enabled: false
