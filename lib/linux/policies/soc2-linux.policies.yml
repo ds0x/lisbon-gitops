@@ -1,0 +1,34 @@
+# SOC2 Trust Service Criteria - Linux Policies
+# These policies provide evidence for SOC2 Type II audits.
+# Applied to the "Compliant" team only; they do not affect other enrolled hosts.
+
+- name: Linux - SOC2 - Firewall active (ufw or iptables)
+  platform: linux
+  description: "SOC2 CC6.3: A host-based firewall must be active to control inbound and outbound network traffic."
+  resolution: "Enable UFW ('sudo ufw enable') or configure iptables rules. Ensure rules persist across reboots."
+  query: |
+    SELECT 1 WHERE EXISTS (
+      SELECT 1 FROM processes WHERE name = 'ufw' AND cmdline LIKE '%status%'
+    ) OR EXISTS (
+      SELECT 1 FROM iptables WHERE policy = 'DROP' OR policy = 'REJECT'
+    ) OR EXISTS (
+      SELECT 1 FROM services WHERE name = 'ufw' AND status = 'running'
+    );
+
+- name: Linux - SOC2 - SSH root login disabled
+  platform: linux
+  description: "SOC2 CC6.1: Direct root login over SSH must be disabled to prevent unauthorized privileged access."
+  resolution: "Set 'PermitRootLogin no' in /etc/ssh/sshd_config and restart the SSH service."
+  query: |
+    SELECT 1 FROM augeas
+    WHERE path = '/files/etc/ssh/sshd_config/PermitRootLogin'
+      AND value = 'no';
+
+- name: Linux - SOC2 - Automatic security updates enabled
+  platform: linux
+  description: "SOC2 CC7.1: Automatic security updates should be enabled to ensure timely patching of vulnerabilities."
+  resolution: "Install and enable unattended-upgrades: 'sudo apt-get install unattended-upgrades && sudo dpkg-reconfigure unattended-upgrades'."
+  query: |
+    SELECT 1 FROM deb_packages WHERE name = 'unattended-upgrades'
+    UNION
+    SELECT 1 FROM rpm_packages WHERE name = 'dnf-automatic';

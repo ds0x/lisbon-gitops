@@ -1,0 +1,84 @@
+# SOC2 Compliant team configuration
+# This team applies SOC2 Trust Service Criteria controls to enrolled devices.
+# Devices must be explicitly moved to this team; no currently enrolled devices are affected automatically.
+#
+# SOC2 coverage:
+#   CC6.1  - Disk encryption, screen lock, strong password policy, auto-login disabled, SIP
+#   CC6.2  - Guest account disabled, failed login monitoring
+#   CC6.3  - Firewall enforced (macOS + Windows), remote access audit
+#   CC6.8  - Gatekeeper, Windows Defender, autorun disabled
+#   CC7.1  - macOS and Windows update enforcement
+#   CC7.2  - USB device monitoring, failed login collection
+#
+# To enroll a device into this team, use the enrollment secret below
+# or move an existing host via the Fleet UI / API.
+# The secret must be added to GitHub Actions secrets as FLEET_COMPLIANT_ENROLL_SECRET.
+
+name: Compliant
+
+policies:
+  # --- CC6.1 / CC6.2 / CC6.3 / CC6.8 - macOS device health baseline ---
+  - path: ../lib/macos/policies/macos-device-health.policies.yml
+  # --- CC6.1 / CC6.2 / CC6.3 / CC6.8 - Additional SOC2 macOS checks ---
+  - path: ../lib/macos/policies/soc2-macos.policies.yml
+  # --- CC6.1 / CC6.3 / CC6.8 - Windows device health baseline ---
+  - path: ../lib/windows/policies/windows-device-health.policies.yml
+  # --- CC6.3 / CC6.8 - Additional SOC2 Windows checks ---
+  - path: ../lib/windows/policies/soc2-windows.policies.yml
+  # --- CC6.1 / CC6.3 / CC7.1 - Linux SOC2 checks ---
+  - path: ../lib/linux/policies/linux-device-health.policies.yml
+  - path: ../lib/linux/policies/soc2-linux.policies.yml
+
+queries:
+  # CC7.2 - Failed login attempt monitoring
+  - path: ../lib/all/queries/collect-failed-login-attempts.queries.yml
+  # CC6.7 / CC7.2 - USB device inventory for data loss prevention
+  - path: ../lib/all/queries/collect-usb-devices.queries.yml
+  # CC6.3 - Remote access configuration audit
+  - path: ../lib/all/queries/remote-access.yml
+  # CC7.2 - Mounted volume inventory
+  - path: ../lib/all/queries/collect-mounted-volumes.yml
+
+agent_options:
+  path: ../lib/agent-options.yml
+
+controls:
+  # CC6.1 - Enforce full-disk encryption on all Compliant team devices
+  enable_disk_encryption: true
+
+  macos_settings:
+    custom_settings:
+      # CC6.1 - Passcode: min 12 chars, complexity, 5-min inactivity lock, max 10 failed attempts
+      - path: ../lib/macos/configuration-profiles/passcode-settings-ddm.json
+      # CC6.1 / CC6.2 - Disable guest account and FDE auto-login
+      - path: ../lib/macos/configuration-profiles/soc2-login-window.mobileconfig
+      # CC6.3 - Enable firewall with stealth mode
+      - path: ../lib/macos/configuration-profiles/soc2-firewall.mobileconfig
+      # CC6.3 - Disable Bluetooth file sharing
+      - path: ../lib/macos/configuration-profiles/disable-bluetooth-file-sharing.mobileconfig
+
+  windows_settings:
+    custom_settings:
+      # CC6.1 - Passcode: min 12 chars, complexity, 5-min inactivity lock, max 10 failed attempts
+      - path: ../lib/windows/configuration-profiles/passcode-settings-ddm.json
+
+  # CC7.1 - Enforce macOS minimum version with a deadline
+  macos_updates:
+    deadline: "2026-06-30"
+    minimum_version: "15.0"
+
+  # CC7.1 - Enforce Windows updates within 14 days with a 3-day grace period
+  windows_updates:
+    deadline_days: 14
+    grace_period_days: 3
+
+  scripts:
+    - path: ../lib/macos/scripts/collect-fleetd-logs.sh
+    - path: ../lib/windows/scripts/rename-host.ps1
+
+team_settings:
+  secrets:
+    - secret: "$FLEET_COMPLIANT_ENROLL_SECRET"
+  features:
+    enable_host_users: true
+    enable_software_inventory: true

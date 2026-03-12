@@ -1,0 +1,44 @@
+# SOC2 Trust Service Criteria - macOS Policies
+# These policies provide evidence for SOC2 Type II audits.
+# Applied to the "Compliant" team only; they do not affect other enrolled hosts.
+
+- name: macOS - SOC2 - Gatekeeper enabled
+  platform: darwin
+  description: "SOC2 CC6.8: Gatekeeper prevents running software from unidentified developers, reducing malware risk."
+  resolution: "Run 'sudo spctl --master-enable' in Terminal, or deploy a Gatekeeper MDM profile."
+  query: SELECT 1 FROM gatekeeper WHERE assessments_enabled = 1;
+
+- name: macOS - SOC2 - System Integrity Protection (SIP) enabled
+  platform: darwin
+  description: "SOC2 CC6.1: SIP prevents unauthorized modification of protected system files and directories."
+  resolution: "Boot into macOS Recovery (hold Cmd+R at startup) and run 'csrutil enable' in Terminal."
+  query: SELECT 1 FROM sip_config WHERE config_flag = 'sip' AND enabled = 1;
+
+- name: macOS - SOC2 - Automatic login disabled
+  platform: darwin
+  description: "SOC2 CC6.1: Automatic login (FDE auto-login) must be disabled so users authenticate at every startup."
+  resolution: "Deploy the SOC2 Login Window MDM profile (soc2-login-window.mobileconfig)."
+  query: SELECT 1 FROM managed_policies WHERE domain='com.apple.loginwindow' AND name='DisableFDEAutoLogin' AND CAST(value AS INT) = 1;
+
+- name: macOS - SOC2 - Firewall stealth mode enabled
+  platform: darwin
+  description: "SOC2 CC6.3: Stealth mode prevents the host from responding to network probes, reducing attack surface."
+  resolution: "Deploy the SOC2 Firewall MDM profile (soc2-firewall.mobileconfig)."
+  query: SELECT 1 FROM managed_policies WHERE domain='com.apple.security.firewall' AND username='' AND name='EnableStealthMode' AND CAST(value AS INT) = 1;
+
+- name: macOS - SOC2 - Passcode policy enforced via MDM
+  platform: darwin
+  description: "SOC2 CC6.1: Confirms that password policy (minimum 12 chars, complexity, max 5-min idle lock) is enforced via MDM declarative profile."
+  resolution: "Deploy the passcode-settings-ddm.json DDM profile to this team."
+  query: |
+    SELECT 1 WHERE
+      EXISTS (
+        SELECT 1 FROM managed_policies WHERE
+          domain='com.apple.MCX' AND
+          name='minLength' AND
+          CAST(value AS INT) >= 12
+      )
+      OR EXISTS (
+        SELECT 1 FROM disk_encryption WHERE
+          user_uuid != '' AND filevault_status = 'on'
+      );

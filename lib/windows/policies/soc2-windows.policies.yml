@@ -1,0 +1,47 @@
+# SOC2 Trust Service Criteria - Windows Policies
+# These policies provide evidence for SOC2 Type II audits.
+# Applied to the "Compliant" team only; they do not affect other enrolled hosts.
+
+- name: Windows - SOC2 - Windows Defender real-time protection enabled
+  platform: windows
+  description: "SOC2 CC6.8: Windows Defender real-time protection must be active to detect and block malware."
+  resolution: "Enable Windows Defender real-time protection via MDM or Group Policy. Ensure no conflicting AV software has disabled Defender."
+  query: |
+    SELECT 1 FROM registry
+    WHERE key = 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection'
+      AND name = 'DisableRealtimeMonitoring'
+      AND CAST(data AS INTEGER) = 0
+    UNION
+    SELECT 1 WHERE NOT EXISTS (
+      SELECT 1 FROM registry
+      WHERE key = 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection'
+        AND name = 'DisableRealtimeMonitoring'
+    );
+
+- name: Windows - SOC2 - Firewall enabled (Domain profile)
+  platform: windows
+  description: "SOC2 CC6.3: Windows Firewall must be enabled for the Domain network profile."
+  resolution: "Enable Windows Firewall via MDM profile or Group Policy (NetSh AdvFirewall Set DomainProfile State On)."
+  query: SELECT 1 FROM mdm_bridge WHERE mdm_command_input = "<SyncBody><Get><CmdID>1</CmdID><Item><Target><LocURI>./Device/Vendor/MSFT/Firewall/MdmStore/DomainProfile/EnableFirewall</LocURI></Target></Item></Get></SyncBody>" AND CAST(mdm_command_output AS INT) = 1;
+
+- name: Windows - SOC2 - Firewall enabled (Private profile)
+  platform: windows
+  description: "SOC2 CC6.3: Windows Firewall must be enabled for the Private network profile."
+  resolution: "Enable Windows Firewall via MDM profile or Group Policy (NetSh AdvFirewall Set PrivateProfile State On)."
+  query: SELECT 1 FROM mdm_bridge WHERE mdm_command_input = "<SyncBody><Get><CmdID>1</CmdID><Item><Target><LocURI>./Device/Vendor/MSFT/Firewall/MdmStore/PrivateProfile/EnableFirewall</LocURI></Target></Item></Get></SyncBody>" AND CAST(mdm_command_output AS INT) = 1;
+
+- name: Windows - SOC2 - Firewall enabled (Public profile)
+  platform: windows
+  description: "SOC2 CC6.3: Windows Firewall must be enabled for the Public network profile."
+  resolution: "Enable Windows Firewall via MDM profile or Group Policy (NetSh AdvFirewall Set PublicProfile State On)."
+  query: SELECT 1 FROM mdm_bridge WHERE mdm_command_input = "<SyncBody><Get><CmdID>1</CmdID><Item><Target><LocURI>./Device/Vendor/MSFT/Firewall/MdmStore/PublicProfile/EnableFirewall</LocURI></Target></Item></Get></SyncBody>" AND CAST(mdm_command_output AS INT) = 1;
+
+- name: Windows - SOC2 - Autorun disabled
+  platform: windows
+  description: "SOC2 CC6.8: Autorun must be disabled to prevent automatic execution of content from removable media."
+  resolution: "Deploy a Windows MDM profile setting NoDriveTypeAutoRun to 255 (disable all drives)."
+  query: |
+    SELECT 1 FROM registry
+    WHERE key = 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer'
+      AND name = 'NoDriveTypeAutoRun'
+      AND CAST(data AS INTEGER) = 255;
