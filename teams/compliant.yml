@@ -57,11 +57,6 @@ controls:
       # CC6.3 - Disable Bluetooth file sharing
       - path: ../lib/macos/configuration-profiles/disable-bluetooth-file-sharing.mobileconfig
 
-  windows_settings:
-    custom_settings:
-      # CC6.1 - Passcode: min 12 chars, complexity, 5-min inactivity lock, max 10 failed attempts
-      - path: ../lib/windows/configuration-profiles/passcode-settings-ddm.json
-
   # CC7.1 - Enforce macOS minimum version with a deadline
   macos_updates:
     deadline: "2026-06-30"
