@@ -1,0 +1,69 @@
+# NIST SP 800-53 Rev 5 High Baseline - macOS Policies
+# These policies provide evidence for 800-53 High Impact audits.
+# Applied to the "Compliant 800-53" team only.
+#
+# Note: macos-device-health.policies.yml is applied globally (default.yml)
+# and is NOT duplicated here. These policies cover controls beyond that baseline.
+
+- name: macOS - 800-53 - Gatekeeper enabled (CM-7)
+  platform: darwin
+  description: "800-53 CM-7: Gatekeeper prevents execution of software from unidentified developers, reducing the attack surface from unauthorized code."
+  resolution: "Run 'sudo spctl --master-enable' in Terminal, or deploy a Gatekeeper MDM profile."
+  query: SELECT 1 FROM gatekeeper WHERE assessments_enabled = 1;
+
+- name: macOS - 800-53 - System Integrity Protection enabled (SI-7)
+  platform: darwin
+  description: "800-53 SI-7: SIP prevents unauthorized modification of protected system files and directories, maintaining software integrity."
+  resolution: "Boot into macOS Recovery (hold Cmd+R at startup) and run 'csrutil enable' in Terminal."
+  query: SELECT 1 FROM sip_config WHERE config_flag = 'sip' AND enabled = 1;
+
+- name: macOS - 800-53 - Automatic login disabled (IA-2)
+  platform: darwin
+  description: "800-53 IA-2: Automatic login (FDE auto-login) must be disabled so users authenticate at every startup, enforcing identification and authentication."
+  resolution: "Deploy the 800-53 macOS monoprofile (800-53-macos-monoprofile.mobileconfig)."
+  query: SELECT 1 FROM managed_policies WHERE domain='com.apple.loginwindow' AND name='DisableFDEAutoLogin' AND CAST(value AS INT) = 1;
+
+- name: macOS - 800-53 - Firewall stealth mode enabled (SC-7)
+  platform: darwin
+  description: "800-53 SC-7: Stealth mode prevents the host from responding to unsolicited network probes, reducing boundary exposure."
+  resolution: "Deploy the 800-53 macOS monoprofile (800-53-macos-monoprofile.mobileconfig)."
+  query: SELECT 1 FROM managed_policies WHERE domain='com.apple.security.firewall' AND username='' AND name='EnableStealthMode' AND CAST(value AS INT) = 1;
+
+- name: macOS - 800-53 - Passcode min 15 chars enforced via MDM (IA-5)
+  platform: darwin
+  description: "800-53 IA-5: Authenticator management requires passwords of at least 15 characters enforced via MDM declarative profile."
+  resolution: "Deploy the 800-53 DDM passcode profile (800-53-passcode.json) to this team."
+  query: |
+    SELECT 1 WHERE EXISTS (
+      SELECT 1 FROM managed_policies WHERE
+        domain='com.apple.MCX' AND
+        name='minLength' AND
+        CAST(value AS INT) >= 15
+    );
+
+- name: macOS - 800-53 - Screen lock after 15 minutes (AC-11)
+  platform: darwin
+  description: "800-53 AC-11: Session lock must activate after no more than 15 minutes of inactivity, requiring re-authentication."
+  resolution: "Deploy the 800-53 macOS monoprofile (800-53-macos-monoprofile.mobileconfig) which enforces a 15-minute screensaver lock."
+  query: |
+    SELECT 1 FROM managed_policies
+    WHERE domain = 'com.apple.screensaver'
+      AND name = 'idleTime'
+      AND CAST(value AS INT) <= 900
+      AND CAST(value AS INT) > 0;
+
+- name: macOS - 800-53 - Time synchronization service running (AU-8)
+  platform: darwin
+  description: "800-53 AU-8: Internal system clocks must use an authoritative time source to ensure accurate audit record timestamps."
+  resolution: "Ensure the system time daemon (timed) is running: 'sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.timed.plist'."
+  query: |
+    SELECT 1 FROM launchd
+    WHERE name = 'com.apple.timed'
+      AND program IS NOT NULL;
+
+- name: macOS - 800-53 - Audit logging enabled (AU-12)
+  platform: darwin
+  description: "800-53 AU-12: The information system must generate audit records for the events defined in AU-2. BSM audit subsystem must be active."
+  resolution: "Enable BSM auditing: 'sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.auditd.plist'."
+  query: |
+    SELECT 1 FROM processes WHERE name = 'auditd' AND pid > 0;

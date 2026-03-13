@@ -1,0 +1,52 @@
+# NIST SP 800-53 Rev 5 High Baseline - Linux Policies
+# These policies provide evidence for 800-53 High Impact audits.
+# Applied to the "Compliant 800-53" team only.
+
+- name: Linux - 800-53 - Firewall active (ufw or iptables) (SC-7)
+  platform: linux
+  description: "800-53 SC-7: A host-based firewall must be active to enforce boundary protection and control network traffic."
+  resolution: "Enable UFW ('sudo ufw enable') or configure iptables rules. Ensure rules persist across reboots."
+  query: |
+    SELECT 1 WHERE EXISTS (
+      SELECT 1 FROM services WHERE name = 'ufw' AND status = 'running'
+    ) OR EXISTS (
+      SELECT 1 FROM iptables WHERE policy = 'DROP' OR policy = 'REJECT'
+    );
+
+- name: Linux - 800-53 - SSH root login disabled (AC-3 / IA-2)
+  platform: linux
+  description: "800-53 AC-3/IA-2: Direct root login over SSH must be disabled to enforce least privilege and prevent unauthorized privileged access."
+  resolution: "Set 'PermitRootLogin no' in /etc/ssh/sshd_config and restart the SSH service."
+  query: |
+    SELECT 1 FROM augeas
+    WHERE path = '/files/etc/ssh/sshd_config/PermitRootLogin'
+      AND value = 'no';
+
+- name: Linux - 800-53 - Audit daemon running (AU-12)
+  platform: linux
+  description: "800-53 AU-12: The auditd daemon must be running to generate audit records for security-relevant events."
+  resolution: "Install and enable auditd: 'sudo apt-get install auditd && sudo systemctl enable --now auditd' (or equivalent for your distro)."
+  query: |
+    SELECT 1 FROM processes WHERE name = 'auditd' AND pid > 0;
+
+- name: Linux - 800-53 - Time synchronization active (AU-8)
+  platform: linux
+  description: "800-53 AU-8: An authoritative time synchronization service (chronyd, ntpd, or systemd-timesyncd) must be running to ensure accurate audit timestamps."
+  resolution: "Install and enable a time sync service: 'sudo apt-get install chrony && sudo systemctl enable --now chronyd'."
+  query: |
+    SELECT 1 WHERE EXISTS (
+      SELECT 1 FROM processes WHERE name = 'chronyd' AND pid > 0
+    ) OR EXISTS (
+      SELECT 1 FROM processes WHERE name = 'ntpd' AND pid > 0
+    ) OR EXISTS (
+      SELECT 1 FROM services WHERE name = 'systemd-timesyncd' AND status = 'running'
+    );
+
+- name: Linux - 800-53 - Automatic security updates enabled (SI-2)
+  platform: linux
+  description: "800-53 SI-2: Automatic security updates must be configured to ensure timely remediation of vulnerabilities."
+  resolution: "Install and enable unattended-upgrades: 'sudo apt-get install unattended-upgrades && sudo dpkg-reconfigure unattended-upgrades', or install dnf-automatic for RHEL/CentOS."
+  query: |
+    SELECT 1 FROM deb_packages WHERE name = 'unattended-upgrades'
+    UNION
+    SELECT 1 FROM rpm_packages WHERE name = 'dnf-automatic';

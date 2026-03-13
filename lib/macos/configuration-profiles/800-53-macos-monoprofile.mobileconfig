@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadDescription</key>
+	<string>NIST SP 800-53 Rev 5 High Baseline - macOS monoprofile. Enforces firewall, login window, Bluetooth file sharing, and screensaver controls. Managed by Fleet GitOps.</string>
+	<key>PayloadDisplayName</key>
+	<string>NIST 800-53 High - macOS Security Baseline</string>
+	<key>PayloadEnabled</key>
+	<true/>
+	<key>PayloadIdentifier</key>
+	<string>com.fleet.800-53.macos.monoprofile</string>
+	<key>PayloadScope</key>
+	<string>System</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>A1F2E3D4-C5B6-7A89-B0C1-D2E3F4A5B6C7</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+	<key>PayloadRemovalDisallowed</key>
+	<true/>
+	<key>PayloadContent</key>
+	<array>
+
+		<!-- SC-7 / AC-17: Application firewall with stealth mode -->
+		<dict>
+			<key>PayloadDescription</key>
+			<string>800-53 SC-7/AC-17: Enables macOS application firewall with stealth mode to control inbound connections and reduce network visibility.</string>
+			<key>PayloadDisplayName</key>
+			<string>Firewall</string>
+			<key>PayloadEnabled</key>
+			<true/>
+			<key>PayloadIdentifier</key>
+			<string>com.fleet.800-53.macos.firewall</string>
+			<key>PayloadType</key>
+			<string>com.apple.security.firewall</string>
+			<key>PayloadUUID</key>
+			<string>B2C3D4E5-F6A7-8B9C-0D1E-2F3A4B5C6D7E</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>EnableFirewall</key>
+			<true/>
+			<key>BlockAllIncoming</key>
+			<false/>
+			<key>EnableStealthMode</key>
+			<true/>
+		</dict>
+
+		<!-- AC-3 / IA-2: Disable guest account and FDE auto-login -->
+		<dict>
+			<key>PayloadDescription</key>
+			<string>800-53 AC-3/IA-2: Disables guest account and FileVault auto-login to enforce user authentication at every startup.</string>
+			<key>PayloadDisplayName</key>
+			<string>Login Window</string>
+			<key>PayloadEnabled</key>
+			<true/>
+			<key>PayloadIdentifier</key>
+			<string>com.fleet.800-53.macos.loginwindow</string>
+			<key>PayloadType</key>
+			<string>com.apple.loginwindow</string>
+			<key>PayloadUUID</key>
+			<string>C3D4E5F6-A7B8-9C0D-1E2F-3A4B5C6D7E8F</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>DisableGuestAccount</key>
+			<true/>
+			<key>DisableFDEAutoLogin</key>
+			<true/>
+		</dict>
+
+		<!-- AC-17: Disable Bluetooth file sharing -->
+		<dict>
+			<key>PayloadContent</key>
+			<dict>
+				<key>com.apple.Bluetooth</key>
+				<dict>
+					<key>Forced</key>
+					<array>
+						<dict>
+							<key>mcx_preference_settings</key>
+							<dict>
+								<key>PrefKeyServicesEnabled</key>
+								<false/>
+							</dict>
+						</dict>
+					</array>
+				</dict>
+			</dict>
+			<key>PayloadDescription</key>
+			<string>800-53 AC-17: Disables Bluetooth file sharing to prevent unauthorized data transfer over Bluetooth.</string>
+			<key>PayloadDisplayName</key>
+			<string>Disable Bluetooth File Sharing</string>
+			<key>PayloadEnabled</key>
+			<true/>
+			<key>PayloadIdentifier</key>
+			<string>com.fleet.800-53.macos.bluetooth</string>
+			<key>PayloadType</key>
+			<string>com.apple.ManagedClient.preferences</string>
+			<key>PayloadUUID</key>
+			<string>D4E5F6A7-B8C9-0D1E-2F3A-4B5C6D7E8F9A</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+		</dict>
+
+		<!-- AC-11: Screen lock after 15 minutes of inactivity -->
+		<dict>
+			<key>PayloadDescription</key>
+			<string>800-53 AC-11: Enforces screen lock after 15 minutes of inactivity with immediate password requirement on resume.</string>
+			<key>PayloadDisplayName</key>
+			<string>Screensaver - 15 Minute Lock</string>
+			<key>PayloadEnabled</key>
+			<true/>
+			<key>PayloadIdentifier</key>
+			<string>com.fleet.800-53.macos.screensaver</string>
+			<key>PayloadType</key>
+			<string>com.apple.screensaver</string>
+			<key>PayloadUUID</key>
+			<string>E5F6A7B8-C9D0-1E2F-3A4B-5C6D7E8F9A0B</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>idleTime</key>
+			<integer>900</integer>
+			<key>askForPassword</key>
+			<integer>1</integer>
+			<key>askForPasswordDelay</key>
+			<integer>0</integer>
+			<key>loginWindowIdleTime</key>
+			<integer>900</integer>
+		</dict>
+
+	</array>
+</dict>
+</plist>
