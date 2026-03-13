@@ -1,95 +1,84 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- NIST SP 800-53 Rev 5 High Baseline - Windows OMA-DM Monoprofile
-     Controls covered:
-       AC-7  - Account lockout: max 3 failed attempts
-       AC-11 - Session lock: 15-minute inactivity timeout
-       IA-5  - Password: min 15 chars, alphanumeric, 60-day expiry, 24-password history
-     Managed by Fleet GitOps.
--->
-<SyncBody>
-
-  <!-- AC-7: Lock account after 3 failed password attempts -->
-  <Replace>
-    <CmdID>1</CmdID>
-    <Item>
-      <Target>
-        <LocURI>./Device/Vendor/MSFT/Policy/Config/DeviceLock/MaxDevicePasswordFailedAttempts</LocURI>
-      </Target>
-      <Meta>
-        <Format xmlns="syncml:metinf">int</Format>
-      </Meta>
-      <Data>3</Data>
-    </Item>
-  </Replace>
-
+<Replace>
+  <!-- AC-7: Lock account after 3 consecutive failed password attempts -->
+  <Item>
+    <Meta>
+      <Format xmlns="syncml:metinf">int</Format>
+    </Meta>
+    <Target>
+      <LocURI>./Device/Vendor/MSFT/Policy/Config/DeviceLock/MaxDevicePasswordFailedAttempts</LocURI>
+    </Target>
+    <Data>3</Data>
+  </Item>
+</Replace>
+<Replace>
   <!-- AC-11: Lock screen after 15 minutes of inactivity -->
-  <Replace>
-    <CmdID>2</CmdID>
-    <Item>
-      <Target>
-        <LocURI>./Device/Vendor/MSFT/Policy/Config/DeviceLock/MaxInactivityTimeDeviceLock</LocURI>
-      </Target>
-      <Meta>
-        <Format xmlns="syncml:metinf">int</Format>
-      </Meta>
-      <Data>15</Data>
-    </Item>
-  </Replace>
-
+  <Item>
+    <Meta>
+      <Format xmlns="syncml:metinf">int</Format>
+    </Meta>
+    <Target>
+      <LocURI>./Device/Vendor/MSFT/Policy/Config/DeviceLock/MaxInactivityTimeDeviceLock</LocURI>
+    </Target>
+    <Data>15</Data>
+  </Item>
+</Replace>
+<Replace>
+  <!-- IA-5: Require passwords (not just PINs) -->
+  <Item>
+    <Meta>
+      <Format xmlns="syncml:metinf">int</Format>
+    </Meta>
+    <Target>
+      <LocURI>./Device/Vendor/MSFT/Policy/Config/DeviceLock/DevicePasswordEnabled</LocURI>
+    </Target>
+    <Data>0</Data>
+  </Item>
+</Replace>
+<Replace>
   <!-- IA-5: Minimum password length of 15 characters -->
-  <Replace>
-    <CmdID>3</CmdID>
-    <Item>
-      <Target>
-        <LocURI>./Device/Vendor/MSFT/Policy/Config/DeviceLock/MinDevicePasswordLength</LocURI>
-      </Target>
-      <Meta>
-        <Format xmlns="syncml:metinf">int</Format>
-      </Meta>
-      <Data>15</Data>
-    </Item>
-  </Replace>
-
-  <!-- IA-5: Password expiration - 60 days maximum -->
-  <Replace>
-    <CmdID>4</CmdID>
-    <Item>
-      <Target>
-        <LocURI>./Device/Vendor/MSFT/Policy/Config/DeviceLock/DevicePasswordExpiration</LocURI>
-      </Target>
-      <Meta>
-        <Format xmlns="syncml:metinf">int</Format>
-      </Meta>
-      <Data>60</Data>
-    </Item>
-  </Replace>
-
+  <Item>
+    <Meta>
+      <Format xmlns="syncml:metinf">int</Format>
+    </Meta>
+    <Target>
+      <LocURI>./Device/Vendor/MSFT/Policy/Config/DeviceLock/MinDevicePasswordLength</LocURI>
+    </Target>
+    <Data>15</Data>
+  </Item>
+</Replace>
+<Replace>
+  <!-- IA-5: Require alphanumeric password (letters + numbers + special chars) -->
+  <Item>
+    <Meta>
+      <Format xmlns="syncml:metinf">int</Format>
+    </Meta>
+    <Target>
+      <LocURI>./Device/Vendor/MSFT/Policy/Config/DeviceLock/MinDevicePasswordComplexCharacters</LocURI>
+    </Target>
+    <Data>3</Data>
+  </Item>
+</Replace>
+<Replace>
+  <!-- IA-5: Password expiration - maximum 60 days -->
+  <Item>
+    <Meta>
+      <Format xmlns="syncml:metinf">int</Format>
+    </Meta>
+    <Target>
+      <LocURI>./Device/Vendor/MSFT/Policy/Config/DeviceLock/DevicePasswordExpiration</LocURI>
+    </Target>
+    <Data>60</Data>
+  </Item>
+</Replace>
+<Replace>
   <!-- IA-5: Password history - prevent reuse of last 24 passwords -->
-  <Replace>
-    <CmdID>5</CmdID>
-    <Item>
-      <Target>
-        <LocURI>./Device/Vendor/MSFT/Policy/Config/DeviceLock/DevicePasswordHistory</LocURI>
-      </Target>
-      <Meta>
-        <Format xmlns="syncml:metinf">int</Format>
-      </Meta>
-      <Data>24</Data>
-    </Item>
-  </Replace>
-
-  <!-- IA-5: Require alphanumeric password (letters + numbers) -->
-  <Replace>
-    <CmdID>6</CmdID>
-    <Item>
-      <Target>
-        <LocURI>./Device/Vendor/MSFT/Policy/Config/DeviceLock/AlphanumericDevicePasswordRequired</LocURI>
-      </Target>
-      <Meta>
-        <Format xmlns="syncml:metinf">int</Format>
-      </Meta>
-      <Data>1</Data>
-    </Item>
-  </Replace>
-
-</SyncBody>
+  <Item>
+    <Meta>
+      <Format xmlns="syncml:metinf">int</Format>
+    </Meta>
+    <Target>
+      <LocURI>./Device/Vendor/MSFT/Policy/Config/DeviceLock/DevicePasswordHistory</LocURI>
+    </Target>
+    <Data>24</Data>
+  </Item>
+</Replace>
