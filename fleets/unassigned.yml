@@ -4,7 +4,7 @@
 
 # To update queries and agent options for hosts assigned to "No team," use the default.yml file.
 
-name: ⍰ Unassigned
+name: Unassigned
 policies:
 controls: # This cannot be set here and in default.yml
 software:
