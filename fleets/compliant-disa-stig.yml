@@ -22,7 +22,7 @@
 #   Queries:  remote-access.yml, collect-mounted-volumes.yml
 #   Policies: macos-device-health.policies.yml
 
-name: Compliant DISA-STIG
+name: 🔏 Compliant DISA-STIG
 
 policies:
   # macOS STIG-specific checks (device-health baseline is already global)
