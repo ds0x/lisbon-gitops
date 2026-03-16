@@ -26,7 +26,7 @@
 #   Queries:  remote-access.yml, collect-mounted-volumes.yml
 #   Policies: macos-device-health.policies.yml
 
-name: Compliant 800-53
+name: 🔏 Compliant 800-53
 
 policies:
   # --- AC-11 / IA-5 / SC-7 / SI-7 / CM-7 / AU-8 / AU-12 - macOS 800-53 High checks ---
