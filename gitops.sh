@@ -22,14 +22,14 @@ grep -Exq "^org_settings:.*" "$FLEET_GLOBAL_FILE"
 # FLEET_SSO_METADATA=$( sed '2,$s/^/      /' <<<  "${FLEET_MDM_SSO_METADATA}")
 # FLEET_MDM_SSO_METADATA=$( sed '2,$s/^/        /' <<<  "${FLEET_MDM_SSO_METADATA}")
 
-if compgen -G "$FLEET_GITOPS_DIR"/teams/*.yml > /dev/null; then
+if compgen -G "$FLEET_GITOPS_DIR"/fleets/*.yml > /dev/null; then
   # Validate that every team has a unique name.
   # This is a limited check that assumes all team files contain the phrase: `name: <team_name>`
-  ! perl -nle 'print $1 if /^name:\s*(.+)$/' "$FLEET_GITOPS_DIR"/teams/*.yml | sort | uniq -d | grep . -cq
+  ! perl -nle 'print $1 if /^name:\s*(.+)$/' "$FLEET_GITOPS_DIR"/fleets/*.yml | sort | uniq -d | grep . -cq
 fi
 
 args=(-f "$FLEET_GLOBAL_FILE")
-for team_file in "$FLEET_GITOPS_DIR"/teams/*.yml; do
+for team_file in "$FLEET_GITOPS_DIR"/fleets/*.yml; do
   if [ -f "$team_file" ]; then
     args+=(-f "$team_file")
   fi
