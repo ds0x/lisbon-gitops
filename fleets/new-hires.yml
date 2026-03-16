@@ -17,7 +17,7 @@ controls:
     custom_settings:
       - path: ../lib/macos/configuration-profiles/disable-bluetooth-file-sharing.mobileconfig
 
-name: New Hires
+name: 🪪 New Hires
 policies:
   - path: ../lib/macos/policies/dns-resolvers.policies.yml
 queries:
