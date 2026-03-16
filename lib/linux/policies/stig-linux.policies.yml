@@ -1,0 +1,95 @@
+# DISA STIG RHEL 9 V1R3 / Ubuntu 22.04 LTS V2R6 - Linux Policies
+# Applied to the "Compliant DISA-STIG" team only.
+
+- name: Linux - STIG - SELinux in enforcing mode (RHEL-09-011010) [STIG-unique]
+  platform: linux
+  description: "DISA STIG RHEL-09-011010: SELinux must be operating in enforcing mode to actively block policy violations. This is STIG-specific — 800-53 does not mandate enforcing mode."
+  resolution: "Set SELINUX=enforcing in /etc/selinux/config and run 'setenforce 1'. For Ubuntu, ensure AppArmor is enabled and profiles are enforced."
+  query: |
+    SELECT 1 FROM selinux_settings
+    WHERE scope = 'enforce' AND state = '1'
+    UNION
+    SELECT 1 FROM processes
+    WHERE name = 'apparmor' AND pid > 0;
+
+- name: Linux - STIG - Audit daemon running (RHEL-09-213020 / AU-12)
+  platform: linux
+  description: "DISA STIG RHEL-09-213020: The auditd service must be running and enabled to generate a persistent audit trail."
+  resolution: "Install and start auditd: 'sudo apt-get install auditd && sudo systemctl enable --now auditd' (Debian/Ubuntu) or 'sudo dnf install audit && sudo systemctl enable --now auditd' (RHEL)."
+  query: SELECT 1 FROM processes WHERE name = 'auditd' AND pid > 0;
+
+- name: Linux - STIG - Audit logs persisted to disk (RHEL-09-213010 / AU-9)
+  platform: linux
+  description: "DISA STIG RHEL-09-213010: Audit logs must be persisted to disk (not volatile storage) to ensure availability after a reboot or crash."
+  resolution: "Configure /etc/audit/auditd.conf: set 'write_logs = yes' and 'log_file = /var/log/audit/audit.log'. Restart auditd."
+  query: |
+    SELECT 1 FROM file
+    WHERE path = '/var/log/audit/audit.log'
+      AND size > 0;
+
+- name: Linux - STIG - SSH root login disabled (RHEL-09-255030 / AC-3)
+  platform: linux
+  description: "DISA STIG RHEL-09-255030: Direct root login over SSH must be disabled to enforce least privilege and prevent unauthorized privileged access."
+  resolution: "Set 'PermitRootLogin no' in /etc/ssh/sshd_config and restart sshd: 'sudo systemctl restart sshd'."
+  query: |
+    SELECT 1 FROM augeas
+    WHERE path = '/files/etc/ssh/sshd_config/PermitRootLogin'
+      AND value = 'no';
+
+- name: Linux - STIG - SSH uses approved ciphers only (RHEL-09-255075) [STIG-unique]
+  platform: linux
+  description: "DISA STIG RHEL-09-255075: SSH must be configured to use only FIPS 140-3 approved ciphers (AES-CTR and AES-GCM families). Weak ciphers (3DES, RC4, arcfour) must be absent."
+  resolution: "Set Ciphers in /etc/ssh/sshd_config to: aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr. Restart sshd."
+  query: |
+    SELECT 1 FROM augeas
+    WHERE path = '/files/etc/ssh/sshd_config/Ciphers'
+      AND value NOT LIKE '%3des%'
+      AND value NOT LIKE '%arcfour%'
+      AND value NOT LIKE '%blowfish%'
+      AND value NOT LIKE '%cast128%';
+
+- name: Linux - STIG - Host-based firewall active (RHEL-09-314010 / SC-7)
+  platform: linux
+  description: "DISA STIG RHEL-09-314010: A host-based firewall (firewalld, ufw, or iptables) must be active and running."
+  resolution: "Enable firewalld: 'sudo systemctl enable --now firewalld' (RHEL) or 'sudo ufw enable' (Ubuntu)."
+  query: |
+    SELECT 1 WHERE EXISTS (
+      SELECT 1 FROM services WHERE name = 'firewalld' AND status = 'running'
+    ) OR EXISTS (
+      SELECT 1 FROM services WHERE name = 'ufw' AND status = 'running'
+    ) OR EXISTS (
+      SELECT 1 FROM iptables WHERE policy = 'DROP' OR policy = 'REJECT'
+    );
+
+- name: Linux - STIG - Time synchronization active - chrony or NTP (AU-8)
+  platform: linux
+  description: "DISA STIG AU-8: A time synchronization service (chronyd, ntpd, or systemd-timesyncd) must be running to ensure accurate audit record timestamps."
+  resolution: "Install chrony: 'sudo dnf install chrony && sudo systemctl enable --now chronyd' (RHEL) or 'sudo apt-get install chrony && sudo systemctl enable --now chronyd' (Ubuntu)."
+  query: |
+    SELECT 1 WHERE EXISTS (
+      SELECT 1 FROM processes WHERE name = 'chronyd' AND pid > 0
+    ) OR EXISTS (
+      SELECT 1 FROM processes WHERE name = 'ntpd' AND pid > 0
+    ) OR EXISTS (
+      SELECT 1 FROM services WHERE name = 'systemd-timesyncd' AND status = 'running'
+    );
+
+- name: Linux - STIG - FIPS mode enabled (RHEL-09-612200) [STIG-unique]
+  platform: linux
+  description: "DISA STIG RHEL-09-612200: FIPS 140-3 mode must be enabled system-wide. All cryptographic operations must use FIPS-validated modules. This is STIG-unique — 800-53 allows cryptographic agility without mandating FIPS mode."
+  resolution: "Enable FIPS mode: 'sudo fips-mode-setup --enable && sudo reboot' (RHEL) or 'sudo ua enable fips-updates && sudo reboot' (Ubuntu Pro)."
+  query: |
+    SELECT 1 FROM kernel_info
+    WHERE arguments LIKE '%fips=1%';
+
+- name: Linux - STIG - No empty passwords in /etc/shadow (RHEL-09-611030 / IA-5)
+  platform: linux
+  description: "DISA STIG RHEL-09-611030: System accounts must not have empty passwords. An empty password field in /etc/shadow indicates no password is required."
+  resolution: "Lock accounts with empty passwords: 'sudo passwd -l <username>'. Ensure /etc/pam.d/system-auth includes 'nullok' removal."
+  query: |
+    SELECT 1 WHERE NOT EXISTS (
+      SELECT 1 FROM shadow
+      WHERE password = ''
+        OR password = '!'
+        AND last_change > 0
+    );

@@ -1,0 +1,13 @@
+{
+    "Type": "com.apple.configuration.passcode.settings",
+    "Identifier": "3e9f1a2b-7c4d-5e6f-a8b9-c0d1e2f3a4b5",
+    "Payload": {
+        "MaximumFailedAttempts": 3,
+        "MaximumInactivityInMinutes": 15,
+        "MinimumLength": 15,
+        "MinimumComplexCharacters": 1,
+        "MaximumPasscodeAgeInDays": 60,
+        "PasscodeHistory": 24,
+        "RequireAlphanumericPasscode": true
+    }
+}

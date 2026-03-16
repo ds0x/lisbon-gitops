@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadDescription</key>
+	<string>DISA STIG macOS Sequoia V1R6 - Monoprofile. Enforces firewall (block all inbound), login window, Bluetooth file sharing, screensaver, and AirDrop restrictions. Managed by Fleet GitOps.</string>
+	<key>PayloadDisplayName</key>
+	<string>DISA STIG - macOS Security Baseline</string>
+	<key>PayloadEnabled</key>
+	<true/>
+	<key>PayloadIdentifier</key>
+	<string>com.fleet.stig.macos.monoprofile</string>
+	<key>PayloadScope</key>
+	<string>System</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>F1E2D3C4-B5A6-7890-ABCD-EF1234567890</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+	<key>PayloadRemovalDisallowed</key>
+	<true/>
+	<key>PayloadContent</key>
+	<array>
+
+		<!-- APPL-15-000007 / APPL-15-000010: Firewall enabled, block ALL inbound, stealth mode
+		     STIG-specific: BlockAllIncoming=true (800-53 allows false) -->
+		<dict>
+			<key>PayloadDescription</key>
+			<string>DISA STIG APPL-15-000007/000010: Enables macOS firewall, blocks all incoming connections, and enables stealth mode.</string>
+			<key>PayloadDisplayName</key>
+			<string>Firewall - Block All Inbound</string>
+			<key>PayloadEnabled</key>
+			<true/>
+			<key>PayloadIdentifier</key>
+			<string>com.fleet.stig.macos.firewall</string>
+			<key>PayloadType</key>
+			<string>com.apple.security.firewall</string>
+			<key>PayloadUUID</key>
+			<string>A2B3C4D5-E6F7-8901-BCDE-F01234567891</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>EnableFirewall</key>
+			<true/>
+			<key>BlockAllIncoming</key>
+			<true/>
+			<key>EnableStealthMode</key>
+			<true/>
+		</dict>
+
+		<!-- APPL-15-000025: Guest account disabled, FDE auto-login disabled (IA-2) -->
+		<dict>
+			<key>PayloadDescription</key>
+			<string>DISA STIG APPL-15-000025: Disables guest account and FileVault auto-login to enforce authentication at every session.</string>
+			<key>PayloadDisplayName</key>
+			<string>Login Window</string>
+			<key>PayloadEnabled</key>
+			<true/>
+			<key>PayloadIdentifier</key>
+			<string>com.fleet.stig.macos.loginwindow</string>
+			<key>PayloadType</key>
+			<string>com.apple.loginwindow</string>
+			<key>PayloadUUID</key>
+			<string>B3C4D5E6-F7A8-9012-CDEF-012345678902</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>DisableGuestAccount</key>
+			<true/>
+			<key>DisableFDEAutoLogin</key>
+			<true/>
+		</dict>
+
+		<!-- APPL-15-000054: Disable Bluetooth file sharing (AC-17) -->
+		<dict>
+			<key>PayloadContent</key>
+			<dict>
+				<key>com.apple.Bluetooth</key>
+				<dict>
+					<key>Forced</key>
+					<array>
+						<dict>
+							<key>mcx_preference_settings</key>
+							<dict>
+								<key>PrefKeyServicesEnabled</key>
+								<false/>
+							</dict>
+						</dict>
+					</array>
+				</dict>
+			</dict>
+			<key>PayloadDescription</key>
+			<string>DISA STIG APPL-15-000054: Disables Bluetooth file sharing to prevent unauthorized data transfer.</string>
+			<key>PayloadDisplayName</key>
+			<string>Disable Bluetooth File Sharing</string>
+			<key>PayloadEnabled</key>
+			<true/>
+			<key>PayloadIdentifier</key>
+			<string>com.fleet.stig.macos.bluetooth</string>
+			<key>PayloadType</key>
+			<string>com.apple.ManagedClient.preferences</string>
+			<key>PayloadUUID</key>
+			<string>C4D5E6F7-A8B9-0123-DEF0-123456789013</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+		</dict>
+
+		<!-- APPL-15-000001/000002: Screen lock 15 min, require password immediately (AC-11) -->
+		<dict>
+			<key>PayloadDescription</key>
+			<string>DISA STIG APPL-15-000001/000002: Enforces screen lock after 15 minutes with immediate password requirement on resume.</string>
+			<key>PayloadDisplayName</key>
+			<string>Screensaver - 15 Minute Lock</string>
+			<key>PayloadEnabled</key>
+			<true/>
+			<key>PayloadIdentifier</key>
+			<string>com.fleet.stig.macos.screensaver</string>
+			<key>PayloadType</key>
+			<string>com.apple.screensaver</string>
+			<key>PayloadUUID</key>
+			<string>D5E6F7A8-B9C0-1234-EF01-234567890124</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>idleTime</key>
+			<integer>900</integer>
+			<key>askForPassword</key>
+			<integer>1</integer>
+			<key>askForPasswordDelay</key>
+			<integer>0</integer>
+			<key>loginWindowIdleTime</key>
+			<integer>900</integer>
+		</dict>
+
+		<!-- APPL-15-002020: Disable AirDrop - STIG-unique (data exfiltration risk) -->
+		<dict>
+			<key>PayloadDescription</key>
+			<string>DISA STIG APPL-15-002020: Disables AirDrop to prevent unauthorized data exfiltration over Bluetooth LE/Wi-Fi peer-to-peer connections.</string>
+			<key>PayloadDisplayName</key>
+			<string>Restrictions - Disable AirDrop</string>
+			<key>PayloadEnabled</key>
+			<true/>
+			<key>PayloadIdentifier</key>
+			<string>com.fleet.stig.macos.restrictions</string>
+			<key>PayloadType</key>
+			<string>com.apple.applicationaccess</string>
+			<key>PayloadUUID</key>
+			<string>E6F7A8B9-C0D1-2345-F012-345678901235</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>allowAirDrop</key>
+			<false/>
+		</dict>
+
+	</array>
+</dict>
+</plist>
