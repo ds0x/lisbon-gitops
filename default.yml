@@ -51,7 +51,7 @@ org_settings:
     volume_purchasing_program:
       - location: "Fleet (Crystal Skyline)"
         teams:
-          - "🛠️ Workstations"
+          - "🖥️ Workstations"
           - "🪪 New Hires"
 controls: # This cannot be set here and in no-team.yml
   windows_enabled_and_configured: true
