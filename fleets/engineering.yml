@@ -32,24 +32,24 @@ queries:
   - path: ../lib/all/queries/collect-failed-login-attempts.queries.yml
 software:
   app_store_apps:
-    - app_store_id: "311421597"
-      self_service: true
-      setup_experience: true
-    - app_store_id: "311421597"
-      self_service: true
-      setup_experience: true
-    - app_store_id: "324715238"
-      self_service: true
-    - app_store_id: "6755752326"
-      self_service: true
-    - app_store_id: "300311831"
-      self_service: true
-    - app_store_id: "341776037"
-      self_service: true
-    - app_store_id: "430255202"
-      platform: darwin
-      setup_experience: true
-      self_service: true
+    # - app_store_id: "311421597"
+    #   self_service: true
+    #   setup_experience: true
+    # - app_store_id: "311421597"
+    #   self_service: true
+    #   setup_experience: true
+    # - app_store_id: "324715238"
+    #   self_service: true
+    # - app_store_id: "6755752326"
+    #   self_service: true
+    # - app_store_id: "300311831"
+    #   self_service: true
+    # - app_store_id: "341776037"
+    #   self_service: true
+    # - app_store_id: "430255202"
+    #   platform: darwin
+    #   setup_experience: true
+    #   self_service: true
     - app_store_id: "com.evo.inware"
       platform: android
       setup_experience: true
