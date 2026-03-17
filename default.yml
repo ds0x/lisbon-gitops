@@ -53,7 +53,7 @@ org_settings:
         fleets:
           - "🖥️ Workstations"
           - "🪪 New Hires"
-          - "Unassigned"
+          # - "Unassigned"
 controls: # This cannot be set here and in unassigned.yml
   windows_enabled_and_configured: true
   macos_settings:
