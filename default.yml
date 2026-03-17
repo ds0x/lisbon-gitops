@@ -12,7 +12,7 @@ policies:
   - path: ./lib/macos/policies/plist-bit.yml
   # Linux policies
   #- path: ../lib/linux/policies/check-fleet-desktop-extension-enabled.yml
-querie
+queries:
   - path: ./lib/macos/queries/detect-apns-certificate.yml
   - path: ./lib/macos/queries/detect-apple-intelligence.yml
   - path: ./lib/macos/queries/network-quality.yml
