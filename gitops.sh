@@ -67,7 +67,9 @@ python3 - "$UNASSIGNED_FILE" "$tmp_unassigned" <<'PYEOF'
 import yaml, sys
 with open(sys.argv[1]) as f:
     data = yaml.safe_load(f)
-data.pop('software', None)
+# Fleet requires 'software' key; only strip app_store_apps (which needs VPP)
+if isinstance(data.get('software'), dict):
+    data['software'].pop('app_store_apps', None)
 with open(sys.argv[2], 'w') as f:
     yaml.dump(data, f, allow_unicode=True, default_flow_style=False)
 PYEOF
