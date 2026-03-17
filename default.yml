@@ -51,7 +51,8 @@ org_settings:
     volume_purchasing_program:
       - location: "Fleet (Crystal Skyline)"
         fleets:
-          - "🖥️ Workstations"
+          - "🛠️ Engineering"
+          # - "🖥️ Workstations"
           - "🪪 New Hires"
           # - "Unassigned"
 controls: # This cannot be set here and in unassigned.yml
