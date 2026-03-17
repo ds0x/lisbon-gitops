@@ -48,9 +48,12 @@ org_settings:
       entity_id: fleet
       idp_name: Okta
       metadata_url: https://trial-5568133.okta.com/app/exkxzb4y1mD65dJih697/sso/saml/metadata
-    # volume_purchasing_program is managed via the Fleet UI, not gitops.
-    # Including it here causes gitops to clear VPP fleet assignments mid-run
-    # (before app_store_apps processing), breaking the Unassigned fleet.
+    volume_purchasing_program:
+      - location: "Fleet (Crystal Skyline)"
+        fleets:
+          - "🖥️ Workstations"
+          - "🪪 New Hires"
+          - "Unassigned"
 controls: # This cannot be set here and in unassigned.yml
   windows_enabled_and_configured: true
   macos_settings:
