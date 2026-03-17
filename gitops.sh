@@ -67,7 +67,7 @@ python3 - "$UNASSIGNED_FILE" "$tmp_unassigned" <<'PYEOF'
 import yaml, sys
 with open(sys.argv[1]) as f:
     data = yaml.safe_load(f)
-data.pop('app_store_apps', None)
+data.pop('software', None)
 with open(sys.argv[2], 'w') as f:
     yaml.dump(data, f, allow_unicode=True, default_flow_style=False)
 PYEOF
