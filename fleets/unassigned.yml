@@ -6,5 +6,6 @@
 
 name: Unassigned
 policies:
-controls: # This cannot be set here and in default.yml
 software:
+controls: # This cannot be set here and in default.yml
+  macos_settings:
