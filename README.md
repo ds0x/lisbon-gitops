@@ -9,7 +9,7 @@ This is the current repository for ds' demo [Fleet](https://fleetdm.com) environ
 
 [Why use GitOps?](https://fleetdm.com/guides/sysadmin-diaries-gitops-a-strategic-advantage#basic-article)
 
-## How dis I make this?
+## How did I make this?
 
 1. Cloned the [GitHub repository](https://github.com/fleetdm/fleet-gitops), created my own GitHub repository, and pushed my clone to my new repo. After that, I've made changes and added several apps, integrations, queries, policies, and profiles.
 
