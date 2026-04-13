@@ -41,9 +41,6 @@ org_settings:
   mdm:
     macos_setup:
       macos_setup_assistant: ./lib/macos/enrollment-profiles/automatic-enrollment.dep.json
-      fleets:
-        - "Unassigned"
-        - "🖥️ Workstations"
     end_user_license_agreement: ./lib/eula.pdf
     end_user_authentication:
       entity_id: fleet
