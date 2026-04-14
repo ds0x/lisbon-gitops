@@ -20,6 +20,9 @@ controls:
   macos_settings:
     custom_settings:
       - path: ../lib/macos/configuration-profiles/passcode-settings-ddm.json
+  windows_settings:
+    custom_settings:
+      - path: ../lib/windows/configuration-profiles/disallow-manual-unenrollment.xml
   macos_updates:
     deadline: "2025-10-31"
     minimum_version: "26.0"
