@@ -1,0 +1,4 @@
+- name: Linux x86 devices
+  description: Linux hosts on x86 architecture
+  query: SELECT 1 FROM os_version WHERE (arch NOT LIKE 'ARM%' AND arch != 'aarch64') AND (platform = 'ubuntu' OR platform = 'debian' OR platform = 'rhel' OR platform = 'centos' OR platform = 'fedora' OR platform LIKE 'opensuse%');
+  label_membership_type: dynamic

@@ -99,11 +99,11 @@ software:
     - path: ../lib/linux/software/vivaldi-amd64-deb.yml
       self_service: true
       labels_include_any:
-        - x86 devices
+        - Linux x86 devices
     - path: ../lib/linux/software/vivaldi-arm64-deb.yml
       self_service: true
       labels_include_any:
-        - ARM devices
+        - Linux ARM devices
 team_settings:
   secrets:
     - secret: "$FLEET_ENGINEERING_ENROLL_SECRET"

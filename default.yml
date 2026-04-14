@@ -58,6 +58,8 @@ labels:
   - path: ./lib/all/labels/arm-devices.yml
   - path: ./lib/all/labels/x86-devices.yml
   - path: ./lib/all/labels/linux-devices.yml
+  - path: ./lib/all/labels/linux-arm-devices.yml
+  - path: ./lib/all/labels/linux-x86-devices.yml
 controls: # This cannot be set here and in unassigned.yml
   windows_enabled_and_configured: true
   macos_settings:
