@@ -66,6 +66,13 @@ software:
       self_service: true
     - slug: vlc/darwin
       self_service: true
+  packages:
+    - url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      self_service: true
+    - url: ../lib/linux/scripts/install-libreoffice.sh
+      self_service: true
+    - url: ../lib/linux/scripts/install-multipass.sh
+      self_service: true
 team_settings:
   secrets:
     - secret: "$FLEET_ENGINEERING_ENROLL_SECRET"
