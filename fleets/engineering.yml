@@ -59,19 +59,21 @@ software:
       setup_experience: true
       self_service: true
     - app_store_id: "618783545"
+      display_name: Slack
       platform: ios
       self_service: true
     - app_store_id: "803453959"
+      display_name: Slack
       platform: darwin
       self_service: true
     - app_store_id: "497799835"
+      display_name: Xcode
       platform: darwin
       self_service: true
   fleet_maintained_apps:
-    - slug: transmit/darwin # Privileges for macOS
+    - slug: transmit/darwin
       setup_experience: true
       self_service: true
-  fleet_maintained_apps:
     - slug: 1password/windows
       self_service: true
       setup_experience: true
@@ -81,18 +83,22 @@ software:
       self_service: true
   packages:
     - path: ../lib/linux/scripts/install-libreoffice.sh
+      display_name: LibreOffice
       self_service: true
       labels_include_any:
         - Linux devices
     - path: ../lib/linux/scripts/install-multipass.sh
+      display_name: Multipass
       self_service: true
       labels_include_any:
         - Linux devices
     - path: ../lib/linux/scripts/install-chromium.sh
+      display_name: Chromium
       self_service: true
       labels_include_any:
         - Linux devices
     - path: ../lib/linux/scripts/install-vscode.sh
+      display_name: Visual Studio Code
       self_service: true
       labels_include_any:
         - Linux devices
