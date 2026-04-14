@@ -82,12 +82,20 @@ software:
   packages:
     - path: ../lib/linux/scripts/install-libreoffice.sh
       self_service: true
+      labels_include_any:
+        - Linux devices
     - path: ../lib/linux/scripts/install-multipass.sh
       self_service: true
+      labels_include_any:
+        - Linux devices
     - path: ../lib/linux/scripts/install-chromium.sh
       self_service: true
+      labels_include_any:
+        - Linux devices
     - path: ../lib/linux/scripts/install-vscode.sh
       self_service: true
+      labels_include_any:
+        - Linux devices
     - path: ../lib/linux/software/vivaldi-amd64-deb.yml
       self_service: true
       labels_include_any:
