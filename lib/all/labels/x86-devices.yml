@@ -1,0 +1,5 @@
+- name: x86 devices
+  description: Linux hosts on x86 architecture
+  query: SELECT 1 FROM os_version WHERE arch NOT LIKE 'ARM%';
+  label_membership_type: dynamic
+  platform: linux
