@@ -49,7 +49,7 @@ org_settings:
     volume_purchasing_program:
       - location: "Fleet (Crystal Skyline)"
         fleets:
-          - "🛠️ Engineering"
+          - "⚙️ Engineering"
           - "🖥️ Workstations"
           - "🪪 New Hires"
           # - "Unassigned"
