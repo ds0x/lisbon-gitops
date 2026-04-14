@@ -73,14 +73,6 @@ software:
       self_service: true
     - path: ../lib/linux/scripts/install-chromium.sh
       self_service: true
-    - path: ../lib/linux/software/1password-amd64-deb.yml
-      self_service: true
-      labels_include_any:
-        - x86 devices
-    - path: ../lib/linux/software/1password-arm64-deb.yml
-      self_service: true
-      labels_include_any:
-        - ARM devices
     - path: ../lib/linux/software/vscode-amd64-deb.yml
       self_service: true
       labels_include_any:
