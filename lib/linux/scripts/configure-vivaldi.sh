@@ -12,7 +12,9 @@ cat > /etc/chromium/policies/managed/vivaldi-fleet.json <<'POLICY'
   "RestoreOnStartup": 4,
   "RestoreOnStartupURLs": ["https://fleetdm.com"],
   "DefaultBrowserSettingEnabled": false,
-  "SyncDisabled": true
+  "SyncDisabled": true,
+  "BrowserSignin": 0,
+  "ConfirmToQuit": false
 }
 POLICY
 chmod 644 /etc/chromium/policies/managed/vivaldi-fleet.json
@@ -59,7 +61,8 @@ cat > "$VIVALDI_DIR/initial_preferences" <<'PREFS'
     }
   },
   "browser": {
-    "has_seen_welcome_page": true
+    "has_seen_welcome_page": true,
+    "confirm_to_quit": false
   },
   "first_run_tabs": []
 }
