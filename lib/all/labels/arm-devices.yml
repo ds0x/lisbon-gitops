@@ -1,5 +1,5 @@
 - name: ARM devices
   description: Linux hosts on ARM architecture
-  query: SELECT 1 FROM os_version WHERE arch LIKE 'ARM%';
+  query: SELECT 1 FROM os_version WHERE arch LIKE 'ARM%' OR arch = 'aarch64';
   label_membership_type: dynamic
   platform: ubuntu

@@ -58,6 +58,15 @@ software:
       platform: android
       setup_experience: true
       self_service: true
+    - app_store_id: "618783545"
+      platform: ios
+      self_service: true
+    - app_store_id: "803453959"
+      platform: darwin
+      self_service: true
+    - app_store_id: "497799835"
+      platform: darwin
+      self_service: true
   fleet_maintained_apps:
     - slug: transmit/darwin # Privileges for macOS
       setup_experience: true
