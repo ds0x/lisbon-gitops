@@ -16,6 +16,7 @@ controls:
     - path: ../lib/windows/scripts/default-exe-install-script.ps1
     - path: ../lib/windows/scripts/rename-host.ps1
     - path: ../lib/macos/scripts/nQ.sh
+    - path: ../lib/linux/scripts/install-fleet-desktop-required-extension.sh
   macos_settings:
     custom_settings:
       - path: ../lib/macos/configuration-profiles/passcode-settings-ddm.json
