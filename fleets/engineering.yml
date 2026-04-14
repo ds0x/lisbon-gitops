@@ -67,7 +67,7 @@ software:
     - slug: vlc/darwin
       self_service: true
   packages:
-    - url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - path: ../lib/linux/software/google-chrome-deb.yml
       self_service: true
     - path: ../lib/linux/scripts/install-libreoffice.sh
       self_service: true
