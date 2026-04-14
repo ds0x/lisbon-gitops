@@ -14,7 +14,7 @@
 # or move an existing host via the Fleet UI / API.
 # The secret must be added to GitHub Actions secrets as FLEET_COMPLIANT_ENROLL_SECRET.
 
-name: 🔏 Compliant SOC2
+name: 🫡 Compliant SOC2
 
 policies:
   # --- CC6.1 / CC6.2 / CC6.3 / CC6.8 - macOS device health baseline ---
