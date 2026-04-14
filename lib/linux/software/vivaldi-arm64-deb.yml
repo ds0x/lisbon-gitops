@@ -1,2 +1,4 @@
 url: https://vivaldi.com/download/vivaldi-stable_arm64.deb
 display_name: Vivaldi
+post_install_script:
+  path: ../scripts/configure-vivaldi.sh

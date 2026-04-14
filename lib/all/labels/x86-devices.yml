@@ -1,5 +1,4 @@
 - name: x86 devices
-  description: Linux hosts on x86 architecture
+  description: All hosts on x86 architecture (macOS, Windows, Linux)
   query: SELECT 1 FROM os_version WHERE arch NOT LIKE 'ARM%' AND arch != 'aarch64';
   label_membership_type: dynamic
-  platform: ubuntu

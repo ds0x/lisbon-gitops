@@ -1,0 +1,4 @@
+- name: Linux ARM devices
+  description: Linux hosts on ARM architecture
+  query: SELECT 1 FROM os_version WHERE (arch LIKE 'ARM%' OR arch = 'aarch64') AND (platform = 'ubuntu' OR platform = 'debian' OR platform = 'rhel' OR platform = 'centos' OR platform = 'fedora' OR platform LIKE 'opensuse%');
+  label_membership_type: dynamic
