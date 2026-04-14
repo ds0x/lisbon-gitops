@@ -4,10 +4,9 @@
 apt-get update && apt-get install -y chromium-browser
 
 # --- Chrome managed policies (enforced, user cannot override) ---
-# Chromium on Ubuntu/Debian may read from either path
 mkdir -p /etc/chromium-browser/policies/managed /etc/chromium/policies/managed
-for dir in /etc/chromium-browser/policies/managed /etc/chromium/policies/managed; do
-  cat > "$$dir/chromium-fleet.json" <<'POLICY'
+
+cat > /etc/chromium-browser/policies/managed/chromium-fleet.json <<'POLICY'
 {
   "HomepageLocation": "https://fleetdm.com",
   "HomepageIsNewTabPage": false,
@@ -19,8 +18,8 @@ for dir in /etc/chromium-browser/policies/managed /etc/chromium/policies/managed
   "ConfirmToQuit": false
 }
 POLICY
-  chmod 644 "$$dir/chromium-fleet.json"
-done
+chmod 644 /etc/chromium-browser/policies/managed/chromium-fleet.json
+cp /etc/chromium-browser/policies/managed/chromium-fleet.json /etc/chromium/policies/managed/chromium-fleet.json
 
 # --- Chromium initial preferences (applied on first profile creation) ---
 cat > /usr/lib/chromium-browser/initial_preferences <<'PREFS'
