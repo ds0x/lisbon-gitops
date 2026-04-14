@@ -67,11 +67,11 @@ software:
     - slug: vlc/darwin
       self_service: true
   packages:
-    - url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - path: ../lib/linux/software/google-chrome-deb.yml
       self_service: true
-    - url: ../lib/linux/scripts/install-libreoffice.sh
+    - path: ../lib/linux/scripts/install-libreoffice.sh
       self_service: true
-    - url: ../lib/linux/scripts/install-multipass.sh
+    - path: ../lib/linux/scripts/install-multipass.sh
       self_service: true
 team_settings:
   secrets:
