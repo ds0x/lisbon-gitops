@@ -20,15 +20,7 @@ POLICY
 chmod 644 /etc/chromium/policies/managed/vivaldi-fleet.json
 
 # --- Vivaldi initial preferences (applied on first profile creation) ---
-# This file seeds settings for new profiles. Vivaldi-specific features
-# (ad/tracker blocker, theme, tab position, mail/calendar/feeds) live
-# under the "vivaldi" key in the Chromium preferences JSON.
-VIVALDI_DIR=$(find /opt -maxdepth 1 -type d -name 'vivaldi*' 2>/dev/null | head -1)
-if [ -z "$VIVALDI_DIR" ]; then
-  VIVALDI_DIR="/opt/vivaldi"
-fi
-
-cat > "$VIVALDI_DIR/initial_preferences" <<'PREFS'
+cat > /opt/vivaldi/initial_preferences <<'PREFS'
 {
   "vivaldi": {
     "content_blocker": {
@@ -67,4 +59,4 @@ cat > "$VIVALDI_DIR/initial_preferences" <<'PREFS'
   "first_run_tabs": []
 }
 PREFS
-chmod 644 "$VIVALDI_DIR/initial_preferences"
+chmod 644 /opt/vivaldi/initial_preferences
