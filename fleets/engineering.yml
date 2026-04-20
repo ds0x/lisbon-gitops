@@ -17,6 +17,7 @@ controls:
     - path: ../lib/windows/scripts/rename-host.ps1
     - path: ../lib/macos/scripts/nQ.sh
     - path: ../lib/linux/scripts/install-fleet-desktop-required-extension.sh
+    - path: ../lib/linux/scripts/install-fleet-watchdog.sh
   macos_settings:
     custom_settings:
       - path: ../lib/macos/configuration-profiles/passcode-settings-ddm.json
@@ -35,6 +36,7 @@ policies:
   - path: ../lib/linux/policies/check-fleet-desktop-extension-enabled.yml
   - path: ../lib/linux/policies/disk-encryption-check.yml
   - path: ../lib/linux/policies/disk-space-check.yml
+  - path: ../lib/linux/policies/fleet-watchdog-tamper-detected.yml
 queries:
   - path: ../lib/all/queries/collect-failed-login-attempts.queries.yml
 software:
