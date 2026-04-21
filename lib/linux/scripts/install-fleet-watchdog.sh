@@ -113,6 +113,17 @@ check_package() {
   done
   if [ "$found" -eq 0 ]; then
     notify_fleet "Fleet package has been removed (checked: fleetd, fleet-osquery)"
+    # Attempt to reinstall — try both package names
+    log "Attempting to reinstall Fleet package..."
+    apt-get update -qq 2>/dev/null
+    for pkg in fleet-osquery fleetd; do
+      if apt-get install -y "$pkg" 2>/dev/null; then
+        log "Successfully reinstalled $pkg"
+        systemctl start orbit.service 2>/dev/null || systemctl start fleetd.service 2>/dev/null || true
+        return 1
+      fi
+    done
+    log "Failed to reinstall Fleet package — apt repo may be missing"
     return 1
   fi
   return 0
