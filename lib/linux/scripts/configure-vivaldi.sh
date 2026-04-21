@@ -3,9 +3,14 @@
 # Configure Vivaldi via Chrome managed policies and initial preferences.
 # Runs as root post-install, before any user launches the browser.
 
-# --- Chrome managed policies (enforced, user cannot override) ---
-mkdir -p /etc/chromium/policies/managed
-cat > /etc/chromium/policies/managed/vivaldi-fleet.json <<'POLICY'
+set -e
+echo "fleet: configuring Vivaldi managed policies and initial preferences..."
+
+# --- Chrome/Vivaldi managed policies (enforced, user cannot override) ---
+# Vivaldi checks multiple policy directories depending on version/distro.
+for POLICY_DIR in /etc/chromium/policies/managed /etc/vivaldi/policies/managed /etc/opt/vivaldi/policies/managed; do
+  mkdir -p "$POLICY_DIR"
+  cat > "$POLICY_DIR/vivaldi-fleet.json" <<'POLICY'
 {
   "HomepageLocation": "https://fleetdm.com",
   "HomepageIsNewTabPage": false,
@@ -15,7 +20,9 @@ cat > /etc/chromium/policies/managed/vivaldi-fleet.json <<'POLICY'
   "SyncDisabled": true
 }
 POLICY
-chmod 644 /etc/chromium/policies/managed/vivaldi-fleet.json
+  chmod 644 "$POLICY_DIR/vivaldi-fleet.json"
+  echo "fleet: wrote $POLICY_DIR/vivaldi-fleet.json"
+done
 
 # --- Vivaldi initial preferences (applied on first profile creation) ---
 # This file seeds settings for new profiles. Vivaldi-specific features
@@ -25,7 +32,9 @@ VIVALDI_DIR=$(find /opt -maxdepth 1 -type d -name 'vivaldi*' 2>/dev/null | head 
 if [ -z "$VIVALDI_DIR" ]; then
   VIVALDI_DIR="/opt/vivaldi"
 fi
+echo "fleet: Vivaldi directory detected as $VIVALDI_DIR"
 
+mkdir -p "$VIVALDI_DIR"
 cat > "$VIVALDI_DIR/initial_preferences" <<'PREFS'
 {
   "vivaldi": {
@@ -65,3 +74,5 @@ cat > "$VIVALDI_DIR/initial_preferences" <<'PREFS'
 }
 PREFS
 chmod 644 "$VIVALDI_DIR/initial_preferences"
+echo "fleet: wrote $VIVALDI_DIR/initial_preferences"
+echo "fleet: Vivaldi configuration complete."
