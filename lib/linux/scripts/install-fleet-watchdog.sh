@@ -231,6 +231,7 @@ UNIT
 
 systemctl daemon-reload
 systemctl enable fleet-watchdog.service
-systemctl start fleet-watchdog.service
+# Use restart (not start) so re-runs pick up the updated watchdog binary
+systemctl restart fleet-watchdog.service
 
 echo "fleet-watchdog installed and running."
