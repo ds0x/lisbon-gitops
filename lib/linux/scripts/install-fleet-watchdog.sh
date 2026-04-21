@@ -8,6 +8,7 @@
 #   /etc/systemd/system/fleet-watchdog.service — systemd unit
 #   /etc/apt/apt.conf.d/99-fleet-hold — dpkg removal block
 #   /etc/fleet-watchdog.conf — config (Fleet URL + token)
+#   /var/cache/fleet-watchdog/*.deb — cached installer for recovery
 
 set -e
 
@@ -36,17 +37,65 @@ if [ -z "$FLEET_PKGS" ]; then
   FLEET_PKGS="fleetd fleet-osquery"
 fi
 
-# ── dpkg hook: block removal of Fleet packages ──────────────────────
+# ── Cache the .deb for reinstall ─────────────────────────────────────
+# Fleet installs via direct .deb download (no apt repo), so we cache it
+# now while the package is installed. dpkg-repack rebuilds the .deb from
+# the installed files.
+mkdir -p /var/cache/fleet-watchdog
+apt-get install -y dpkg-repack 2>/dev/null || true
+for pkg in $FLEET_PKGS; do
+  if command -v dpkg-repack >/dev/null 2>&1; then
+    echo "Caching $pkg .deb for watchdog recovery..."
+    cd /var/cache/fleet-watchdog
+    dpkg-repack "$pkg" 2>/dev/null || echo "WARNING: Could not cache $pkg .deb" >&2
+    cd /
+  fi
+done
+
+# ── apt removal protection ───────────────────────────────────────────
+# DPkg::Pre-Install-Pkgs receives the action list on stdin. We scan it
+# for lines that indicate fleet packages are being removed/purged.
 cat > /etc/apt/apt.conf.d/99-fleet-hold <<'APTCONF'
-// Prevent removal of Fleet packages (fleetd / fleet-osquery) via apt
-DPkg::Pre-Invoke {
-  "for p in fleetd fleet-osquery; do dpkg-query -s $p >/dev/null 2>&1 && dpkg --get-selections $p 2>/dev/null | grep -q 'deinstall' && echo \"ERROR: Removal of $p is blocked by fleet-watchdog.\" >&2 && exit 1; done; true";
+// Prevent removal of Fleet packages (fleetd / fleet-osquery) via apt.
+// DPkg::Pre-Install-Pkgs hooks receive the package action list on stdin
+// (one package per line). Lines starting with a path contain the action;
+// lines for removals show "**REMOVE**". We check for our packages.
+DPkg::Pre-Install-Pkgs {
+  "/usr/local/bin/fleet-watchdog-apt-guard";
 };
 APTCONF
 
-# Also set dpkg hold on detected packages
+# The guard script reads the dpkg action list from stdin
+cat > /usr/local/bin/fleet-watchdog-apt-guard <<'GUARD'
+#!/bin/bash
+# Read the dpkg action list from stdin (provided by DPkg::Pre-Install-Pkgs)
+# and block removal of Fleet packages.
+while IFS= read -r line; do
+  # Action lines look like: "<package> <version> - <version> <action>"
+  # Remove lines contain "**REMOVE**" or have "- " at the end
+  case "$line" in
+    *fleet-osquery*REMOVE*|*fleetd*REMOVE*)
+      echo "ERROR: Removal of Fleet package is blocked by fleet-watchdog." >&2
+      echo "To override, first run: sudo rm /etc/apt/apt.conf.d/99-fleet-hold" >&2
+      exit 1
+      ;;
+    *fleet-osquery*" - "*|*fleetd*" - "*)
+      # Also catch the "<old_version> - <empty>" pattern for removals
+      if echo "$line" | grep -qE '\s-\s*$'; then
+        echo "ERROR: Removal of Fleet package is blocked by fleet-watchdog." >&2
+        echo "To override, first run: sudo rm /etc/apt/apt.conf.d/99-fleet-hold" >&2
+        exit 1
+      fi
+      ;;
+  esac
+done
+exit 0
+GUARD
+chmod 755 /usr/local/bin/fleet-watchdog-apt-guard
+
+# Also set dpkg hold on detected packages (prevents accidental upgrades)
 for pkg in $FLEET_PKGS; do
-  dpkg --set-selections <<< "$pkg hold" 2>/dev/null || true
+  apt-mark hold "$pkg" 2>/dev/null || true
 done
 
 # ── Watchdog script ───────────────────────────────────────────────────
@@ -55,16 +104,17 @@ cat > /usr/local/bin/fleet-watchdog <<'WATCHDOG'
 # fleet-watchdog: monitors fleetd health and detects deliberate tampering.
 #
 # Deliberate actions detected:
-#   1. fleetd package removed (dpkg -s fails)
-#   2. fleetd service disabled (systemctl is-enabled fails)
-#   3. fleetd service stopped for >120s (grace period for updates)
-#   4. fleetd enrollment config deleted
+#   1. Fleet package removed (dpkg -s fails)
+#   2. Fleet service disabled (systemctl is-enabled fails)
+#   3. Fleet service stopped for >120s (grace period for updates)
+#   4. Fleet enrollment config deleted
 #
 # On detection: writes flag to /var/run/fleet-tamper-detected,
-# logs to syslog, and calls Fleet API if configured.
+# logs to syslog, calls Fleet API if configured, and attempts recovery.
 
 TAMPER_FLAG="/var/run/fleet-tamper-detected"
 CONF_FILE="/etc/fleet-watchdog.conf"
+DEB_CACHE="/var/cache/fleet-watchdog"
 STOP_TIMESTAMP=""
 GRACE_SECONDS=120
 
@@ -113,17 +163,40 @@ check_package() {
   done
   if [ "$found" -eq 0 ]; then
     notify_fleet "Fleet package has been removed (checked: fleetd, fleet-osquery)"
-    # Attempt to reinstall — try both package names
-    log "Attempting to reinstall Fleet package..."
-    apt-get update -qq 2>/dev/null
-    for pkg in fleet-osquery fleetd; do
-      if apt-get install -y "$pkg" 2>/dev/null; then
-        log "Successfully reinstalled $pkg"
-        systemctl start orbit.service 2>/dev/null || systemctl start fleetd.service 2>/dev/null || true
-        return 1
-      fi
-    done
-    log "Failed to reinstall Fleet package — apt repo may be missing"
+    # Attempt to reinstall from cached .deb
+    log "Attempting to reinstall Fleet package from cached .deb..."
+    local reinstalled=0
+    if [ -d "$DEB_CACHE" ]; then
+      for deb in "$DEB_CACHE"/fleet-osquery*.deb "$DEB_CACHE"/fleetd*.deb; do
+        if [ -f "$deb" ]; then
+          log "Found cached installer: $deb"
+          if dpkg -i "$deb" 2>/dev/null; then
+            log "Successfully reinstalled from $deb"
+            systemctl daemon-reload
+            systemctl start orbit.service 2>/dev/null || systemctl start fleetd.service 2>/dev/null || true
+            reinstalled=1
+            break
+          else
+            log "dpkg -i failed for $deb"
+          fi
+        fi
+      done
+    fi
+    if [ "$reinstalled" -eq 0 ]; then
+      # Fallback: try apt (in case a repo exists)
+      apt-get update -qq 2>/dev/null
+      for pkg in fleet-osquery fleetd; do
+        if apt-get install -y "$pkg" 2>/dev/null; then
+          log "Successfully reinstalled $pkg via apt"
+          systemctl start orbit.service 2>/dev/null || systemctl start fleetd.service 2>/dev/null || true
+          reinstalled=1
+          break
+        fi
+      done
+    fi
+    if [ "$reinstalled" -eq 0 ]; then
+      log "Failed to reinstall Fleet package — no cached .deb and no apt repo"
+    fi
     return 1
   fi
   return 0
@@ -231,6 +304,7 @@ UNIT
 
 systemctl daemon-reload
 systemctl enable fleet-watchdog.service
-systemctl start fleet-watchdog.service
+# Use restart (not start) so re-runs pick up the updated watchdog binary
+systemctl restart fleet-watchdog.service
 
 echo "fleet-watchdog installed and running."
