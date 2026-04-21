@@ -1,0 +1,16 @@
+- name: Linux - No fleetd tamper detected
+  query: >
+    SELECT 1 WHERE NOT EXISTS (
+      SELECT 1 FROM file WHERE path = '/var/run/fleet-tamper-detected'
+    );
+  critical: true
+  description: >
+    Checks that fleet-watchdog has not detected deliberate tampering with fleetd.
+    Tampering includes package removal, service disable, prolonged service stop,
+    or deletion of enrollment configuration.
+  resolution: >
+    The fleet-watchdog daemon has detected deliberate tampering with fleetd on this host.
+    Investigate by reviewing the tamper log at /var/run/fleet-tamper-detected and
+    syslog entries tagged "fleet-watchdog". Reinstall fleetd if the package was removed
+    and ensure the fleet-watchdog service is running (systemctl status fleet-watchdog).
+  platform: linux
