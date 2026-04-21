@@ -22,16 +22,32 @@ FLEET_WATCHDOG_TOKEN=""
 CONF
 chmod 600 /etc/fleet-watchdog.conf
 
-# ── dpkg hook: block removal of fleetd ────────────────────────────────
+# ── Detect Fleet package name(s) ─────────────────────────────────────
+# Fleet ships as either "fleetd" or "fleet-osquery" depending on version/distro.
+FLEET_PKGS=""
+for pkg in fleetd fleet-osquery; do
+  if dpkg -s "$pkg" >/dev/null 2>&1; then
+    FLEET_PKGS="$FLEET_PKGS $pkg"
+  fi
+done
+FLEET_PKGS=$(echo "$FLEET_PKGS" | xargs)  # trim whitespace
+if [ -z "$FLEET_PKGS" ]; then
+  echo "WARNING: Neither fleetd nor fleet-osquery package found. Watchdog will still install." >&2
+  FLEET_PKGS="fleetd fleet-osquery"
+fi
+
+# ── dpkg hook: block removal of Fleet packages ──────────────────────
 cat > /etc/apt/apt.conf.d/99-fleet-hold <<'APTCONF'
-// Prevent removal of fleetd via apt
+// Prevent removal of Fleet packages (fleetd / fleet-osquery) via apt
 DPkg::Pre-Invoke {
-  "dpkg-query -s fleetd >/dev/null 2>&1 && dpkg --get-selections fleetd 2>/dev/null | grep -q 'deinstall' && echo 'ERROR: Removal of fleetd is blocked by fleet-watchdog.' >&2 && exit 1 || true";
+  "for p in fleetd fleet-osquery; do dpkg-query -s $p >/dev/null 2>&1 && dpkg --get-selections $p 2>/dev/null | grep -q 'deinstall' && echo \"ERROR: Removal of $p is blocked by fleet-watchdog.\" >&2 && exit 1; done; true";
 };
 APTCONF
 
-# Also set dpkg hold on the package
-dpkg --set-selections <<< "fleetd hold" 2>/dev/null || true
+# Also set dpkg hold on detected packages
+for pkg in $FLEET_PKGS; do
+  dpkg --set-selections <<< "$pkg hold" 2>/dev/null || true
+done
 
 # ── Watchdog script ───────────────────────────────────────────────────
 cat > /usr/local/bin/fleet-watchdog <<'WATCHDOG'
@@ -87,25 +103,47 @@ notify_fleet() {
 }
 
 check_package() {
-  if ! dpkg -s fleetd >/dev/null 2>&1; then
-    notify_fleet "fleetd package has been removed"
+  # Fleet ships as "fleetd" or "fleet-osquery" — check both
+  local found=0
+  for pkg in fleetd fleet-osquery; do
+    if dpkg -s "$pkg" >/dev/null 2>&1; then
+      found=1
+      break
+    fi
+  done
+  if [ "$found" -eq 0 ]; then
+    notify_fleet "Fleet package has been removed (checked: fleetd, fleet-osquery)"
     return 1
   fi
   return 0
 }
 
+# Detect the Fleet service name (orbit.service or fleetd.service)
+detect_fleet_service() {
+  for svc in orbit.service fleetd.service; do
+    if systemctl list-unit-files "$svc" >/dev/null 2>&1; then
+      if systemctl list-unit-files "$svc" 2>/dev/null | grep -q "$svc"; then
+        echo "$svc"
+        return
+      fi
+    fi
+  done
+  echo "orbit.service"  # default
+}
+FLEET_SERVICE=$(detect_fleet_service)
+
 check_service_enabled() {
-  if ! systemctl is-enabled fleetd.service >/dev/null 2>&1; then
-    notify_fleet "fleetd service has been disabled"
+  if ! systemctl is-enabled "$FLEET_SERVICE" >/dev/null 2>&1; then
+    notify_fleet "$FLEET_SERVICE has been disabled"
     # Re-enable it
-    systemctl enable fleetd.service 2>/dev/null || true
+    systemctl enable "$FLEET_SERVICE" 2>/dev/null || true
     return 1
   fi
   return 0
 }
 
 check_service_running() {
-  if systemctl is-active fleetd.service >/dev/null 2>&1; then
+  if systemctl is-active "$FLEET_SERVICE" >/dev/null 2>&1; then
     # Service is running — clear any stop timestamp
     STOP_TIMESTAMP=""
     return 0
@@ -118,15 +156,15 @@ check_service_running() {
   if [ -z "$STOP_TIMESTAMP" ]; then
     # First detection — start grace period (allows for updates/restarts)
     STOP_TIMESTAMP="$now"
-    log "fleetd service stopped — starting ${GRACE_SECONDS}s grace period"
+    log "$FLEET_SERVICE stopped — starting ${GRACE_SECONDS}s grace period"
     return 0
   fi
 
   local elapsed=$(( now - STOP_TIMESTAMP ))
   if [ "$elapsed" -ge "$GRACE_SECONDS" ]; then
-    notify_fleet "fleetd service stopped for ${elapsed}s (exceeds ${GRACE_SECONDS}s grace period)"
+    notify_fleet "$FLEET_SERVICE stopped for ${elapsed}s (exceeds ${GRACE_SECONDS}s grace period)"
     # Attempt restart
-    systemctl start fleetd.service 2>/dev/null || true
+    systemctl start "$FLEET_SERVICE" 2>/dev/null || true
     STOP_TIMESTAMP=""
     return 1
   fi
@@ -165,8 +203,8 @@ chmod 755 /usr/local/bin/fleet-watchdog
 cat > /etc/systemd/system/fleet-watchdog.service <<'UNIT'
 [Unit]
 Description=Fleet Watchdog — prevents fleetd unenrollment
-After=network.target fleetd.service
-Wants=fleetd.service
+After=network.target orbit.service fleetd.service
+Wants=orbit.service
 
 [Service]
 Type=simple
