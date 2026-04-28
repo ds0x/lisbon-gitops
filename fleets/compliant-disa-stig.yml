@@ -27,7 +27,7 @@ name: 🫡 Compliant DISA-STIG
 policies:
   # macOS STIG-specific checks (device-health baseline is already global)
   - path: ../lib/macos/policies/stig-macos.policies.yml
-  # Windows: device health baseline + STIG-specific checks
+  # Windows: device health baseline + STIG-specific checks made
   - path: ../lib/windows/policies/windows-device-health.policies.yml
   - path: ../lib/windows/policies/stig-windows.policies.yml
   # Linux: device health baseline + STIG-specific checks
