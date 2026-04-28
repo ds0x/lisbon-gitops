@@ -21,6 +21,7 @@ controls:
   scripts:
     - path: ../lib/macos/scripts/remove-zoom-artifacts.script.sh
     - path: ../lib/macos/scripts/set-timezone.script.sh
+    - path: ../lib/linux/scripts/wsl-alert.sh
 team_settings:
   secrets:
     - secret: "$FLEET_WORKSTATIONS_CANARY_ENROLL_SECRET"
