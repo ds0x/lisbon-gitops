@@ -121,7 +121,7 @@ software:
       self_service: true
       labels_include_any:
         - Linux ARM devices
-    - path: ../lib/macos/scripts/chrome-clear.sh
+    - path: ../lib/macos/scripts/user-alert-ss.sh
       self_service: true
 fleet_settings:
   secrets:
