@@ -35,4 +35,4 @@ runCommand=$(osascript -e "display dialog \"Alert delivered to $currentUser, UID
 runAsUser "$runCommand"
 
 # Runs the command as the script running user with no consideration.
-sh "$runCommand"
+# sh "$runCommand"
