@@ -13,6 +13,7 @@ controls:
   enable_disk_encryption: true
   scripts:
     - path: ../lib/macos/scripts/remove-zoom-artifacts.script.sh
+    - path: ../lib/macos/scripts/user-alert.sh
     - path: ../lib/windows/scripts/default-exe-install-script.ps1
     - path: ../lib/windows/scripts/rename-host.ps1
     - path: ../lib/macos/scripts/nQ.sh
