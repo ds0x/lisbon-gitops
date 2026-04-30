@@ -14,9 +14,7 @@ controls:
   scripts:
     - path: ../lib/macos/scripts/remove-zoom-artifacts.script.sh
     - path: ../lib/macos/scripts/user-alert.sh
-      self_service: true
     - path: ../lib/macos/scripts/chrome-clear.sh
-      self_service: true
     - path: ../lib/windows/scripts/default-exe-install-script.ps1
     - path: ../lib/windows/scripts/rename-host.ps1
     - path: ../lib/macos/scripts/nQ.sh
