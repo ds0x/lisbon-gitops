@@ -33,3 +33,6 @@ runCommand=$(osascript -e "display dialog \"Alert delivered to $currentUser, UID
 
 # Runs the command as the GUI logged-in user using the subroutine.
 runAsUser "$runCommand"
+
+# Runs the command as the script running user with no consideration.
+sh "$runCommand"
