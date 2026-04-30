@@ -121,9 +121,9 @@ software:
       self_service: true
       labels_include_any:
         - Linux ARM devices
-    - path: ../lib/macos/software/user-alert-s2.sh
-      display_name: User Alert Test
-      self_service: true
+    # - path: ../lib/macos/software/user-alert-s2.sh
+    #   display_name: User Alert Test
+    #   self_service: true
 team_settings:
   secrets:
     - secret: "$FLEET_ENGINEERING_ENROLL_SECRET"
