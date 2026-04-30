@@ -121,7 +121,7 @@ software:
       self_service: true
       labels_include_any:
         - Linux ARM devices
-    - path: ../lib/macos/scripts/user-alert-s2.sh
+    - path: ../lib/macos/software/user-alert-s2.sh
       self_service: true
 team_settings:
   secrets:
