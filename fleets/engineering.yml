@@ -123,7 +123,7 @@ software:
         - Linux ARM devices
     - path: ../lib/macos/scripts/user-alert-ss.sh
       self_service: true
-fleet_settings:
+team_settings:
   secrets:
     - secret: "$FLEET_ENGINEERING_ENROLL_SECRET"
   features:
