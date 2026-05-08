@@ -32,7 +32,7 @@ controls:
   ipados_updates:
     deadline: "2025-12-31"
     minimum_version: "26.0"
-name: ⚙️ Workstations
+name: ⚙️ TransitionalWorkstations
 policies:
   - path: ../lib/windows/policies/all-windows-updates-installed.policies.yml
   - path: ../lib/linux/policies/check-fleet-desktop-extension-enabled.yml
