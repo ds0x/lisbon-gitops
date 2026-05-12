@@ -10,6 +10,7 @@ policies:
   - path: ./lib/macos/policies/update-safari.yml
   - path: ./lib/macos/policies/macos-device-health.policies.yml
   - path: ./lib/macos/policies/plist-bit.yml
+  - path: ./lib/macos/policies/*.yml
   # Linux policies
   # - path: ./lib/linux/policies/linux-device-health.policies.yml
 queries:
@@ -21,6 +22,8 @@ queries:
   - path: ./lib/all/queries/router-address.yml
   - path: ./lib/all/queries/remote-access.yml
   - path: ./lib/all/queries/collect-mounted-volumes.yml
+  - path: ./lib/all/queries/*.yml
+
 agent_options:
   path: ./lib/agent-options.yml
   config:
