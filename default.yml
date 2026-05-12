@@ -7,21 +7,11 @@
 
 policies:
   # macOS policies
-  - path: ./lib/macos/policies/update-safari.yml
-  - path: ./lib/macos/policies/macos-device-health.policies.yml
-  - path: ./lib/macos/policies/plist-bit.yml
   - paths: ./lib/macos/policies/*.yml
   # Linux policies
   # - path: ./lib/linux/policies/linux-device-health.policies.yml
 queries:
-  - path: ./lib/macos/queries/detect-apns-certificate.yml
-  - path: ./lib/macos/queries/detect-apple-intelligence.yml
-  - path: ./lib/macos/queries/network-quality.yml
-  - path: ./lib/macos/queries/snowflake-macos-metrics.yml
-  - path: ./lib/all/queries/hw-info.yml
-  - path: ./lib/all/queries/router-address.yml
-  - path: ./lib/all/queries/remote-access.yml
-  - path: ./lib/all/queries/collect-mounted-volumes.yml
+  - paths: ./lib/macos/queries/*.yml
   - paths: ./lib/all/queries/*.yml
 
 agent_options:
@@ -61,7 +51,7 @@ controls: # This cannot be set here and in unassigned.yml
   windows_enabled_and_configured: true
   macos_settings:
     custom_settings:
-      - path: ./lib/macos/configuration-profiles/self-service.mobileconfig
-      - path: ./lib/macos/configuration-profiles/AppleScript-PPPC.mobileconfig
-      - path: ./lib/ios/configuration-profiles/lock-screen-message.mobileconfig
-      - path: ./lib/ios/declaration-profiles/swupd-settings.json
+      - paths: ./lib/macos/configuration-profiles/*.mobileconfig
+      # - path: ./lib/macos/configuration-profiles/AppleScript-PPPC.mobileconfig
+      # - path: ./lib/ios/configuration-profiles/lock-screen-message.mobileconfig
+      - paths: ./lib/ios/declaration-profiles/*.json
