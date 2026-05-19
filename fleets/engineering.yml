@@ -22,7 +22,7 @@ controls:
     - path: ../lib/linux/scripts/install-fleet-watchdog.sh
   macos_settings:
     custom_settings:
-      - path: ../lib/macos/configuration-profiles/passcode-settings-ddm.json
+      # - path: ../lib/macos/configuration-profiles/passcode-settings-ddm.json
   windows_settings:
     custom_settings:
       - path: ../lib/windows/configuration-profiles/disallow-manual-unenrollment.xml
