@@ -4,5 +4,5 @@
   description: Devices have their connections checked periodically to ensure bandwidth and latency are optimal.
   resolution: Run the nQ.sh script to resolve.
   platform: darwin
-  run_script:
-    path: ../scripts/nQ.sh
+  # run_script:
+  #   path: ../scripts/nQ.sh
