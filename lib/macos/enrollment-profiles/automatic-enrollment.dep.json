@@ -1,10 +1,9 @@
 {
   "profile_name": "Fleet automatic enrollment - skip all, auto-advance",
-  "allow_pairing": false,
+  "allow_pairing": true,
   "is_supervised": true,
   "is_mandatory": true,
   "is_mdm_removable": false,
-  "await_device_configured": false,
   "auto_advance_setup": true,
   "skip_setup_items": [
     "Accessibility",
