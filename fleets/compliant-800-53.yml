@@ -62,7 +62,7 @@ controls:
 
   # SI-2 - Enforce macOS minimum version with a deadline
   macos_updates:
-    deadline: "2026-06-30"
+    deadline: "2026-07-30"
     minimum_version: "15.0"
 
   # SI-2 - Enforce Windows updates within 14 days with a 3-day grace period
