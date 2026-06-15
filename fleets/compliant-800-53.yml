@@ -58,7 +58,7 @@ controls:
       # IA-5 (AC-11) - Passcode: min 15 chars, 2 complex chars, 15-min lock, max 3 failed attempts, 60-day expiry, 24-history
       - path: ../lib/macos/configuration-profiles/800-53-passcode.json
       # AC-3 / AC-11 / AC-17 / SC-7 / IA-2 - Firewall, login window, Bluetooth, screensaver monoprofile
-      - path: ../lib/macos/configuration-profiles/800-53-macos-monoprofile.mobileconfig
+      # - path: ../lib/macos/configuration-profiles/800-53-macos-monoprofile.mobileconfig
 
   # SI-2 - Enforce macOS minimum version with a deadline
   macos_updates:
