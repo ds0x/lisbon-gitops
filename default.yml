@@ -9,7 +9,7 @@ policies:
   # macOS policies
   - paths: ./lib/macos/policies/*.yml
   # Linux policies
-  - paths: ./lib/linux/policies/*.yml
+  # - paths: ./lib/linux/policies/*.yml
 queries:
   - paths: ./lib/macos/queries/*.yml
   - paths: ./lib/all/queries/*.yml
