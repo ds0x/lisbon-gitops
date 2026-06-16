@@ -9,7 +9,7 @@ policies:
   # macOS policies
   - paths: ./lib/macos/policies/*.yml
   # Linux policies
-  # - path: ./lib/linux/policies/linux-device-health.policies.yml
+  - path: ./lib/linux/policies/*.yml
 queries:
   - paths: ./lib/macos/queries/*.yml
   - paths: ./lib/all/queries/*.yml
@@ -54,4 +54,4 @@ controls: # This cannot be set here and in unassigned.yml
       - paths: ./lib/macos/configuration-profiles/*.mobileconfig
       # - path: ./lib/macos/configuration-profiles/AppleScript-PPPC.mobileconfig
       # - path: ./lib/ios/configuration-profiles/lock-screen-message.mobileconfig
-      - paths: ./lib/ios/declaration-profiles/*.json
+      - path: ./lib/ios/declaration-profiles/*.json
