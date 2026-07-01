@@ -43,8 +43,8 @@ org_settings:
       - location: "Fleet (Crystal Skyline)"
         fleets:
           - "⚙️ Engineering"
-          - "🖥️ Workstations"
-          - "🪪 New Hires"
+          # - "🖥️ Workstations"
+          # - "🪪 New Hires"
           # - "Unassigned"
 software:
 controls: # This cannot be set here and in unassigned.yml
