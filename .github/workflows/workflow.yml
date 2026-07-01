@@ -30,20 +30,19 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Apply latest configuration to Fleet
-        uses: ./.github/gitops-action
+        uses: ./.github/gitops-action-fleets
         with:
           # Run GitOps in dry-run mode for pull requests.
           dry-run-only: ${{ github.event_name == 'pull_request' && 'true' || 'false' }}
         # Add FLEET_URL and FLEET_API_TOKEN to the repository secrets.
-        # In addition, specify or add secrets for all the environment variables that are mentioned in the global/team YAML files.
+        # In addition, add a secret for every enroll-secret env var referenced by the fleet YAML files.
         env:
           FLEET_URL: ${{ secrets.FLEET_URL }}
           FLEET_API_TOKEN: ${{ secrets.FLEET_API_TOKEN }}
           FLEET_GLOBAL_ENROLL_SECRET: ${{ secrets.FLEET_GLOBAL_ENROLL_SECRET }}
           FLEET_WORKSTATIONS_ENROLL_SECRET: ${{ secrets.FLEET_WORKSTATIONS_ENROLL_SECRET }}
           FLEET_WORKSTATIONS_CANARY_ENROLL_SECRET: ${{ secrets.FLEET_WORKSTATIONS_CANARY_ENROLL_SECRET }}
-          FLEET_ENGINEERING_ENROLL_SECRET: ${{ secrets.FLEET_ENGINEERING_ENROLL_SECRET }}
           FLEET_NEW_HIRES_ENROLL_SECRET: ${{ secrets.FLEET_NEW_HIRES_ENROLL_SECRET }}
-          FLEET_COMPLIANT_ENROLL_SECRET: ${{ secrets.FLEET_COMPLIANT_ENROLL_SECRET }}
-          FLEET_COMPLIANT_800_53_ENROLL_SECRET: ${{ secrets.FLEET_COMPLIANT_800_53_ENROLL_SECRET }}
-          FLEET_COMPLIANT_DISA_STIG_ENROLL_SECRET: ${{ secrets.FLEET_COMPLIANT_DISA_STIG_ENROLL_SECRET }}
+          # Optional. Comma-separated list of extra HTTP headers ("Header:Value") sent on every
+          # request to Fleet (e.g. a Cloudflare Access service token). Leave unset to send none.
+          FLEET_CUSTOM_HEADERS: ${{ secrets.FLEET_CUSTOM_HEADERS }}

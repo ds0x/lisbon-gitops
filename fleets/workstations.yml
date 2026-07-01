@@ -1,14 +1,15 @@
-# fleets are available in Fleet Premium.
+# Fleets are available in Fleet Premium.
 
-# This file updates policies, queries, agent options, controls, and software for hosts assigned to the "Workstations" fleet.
+# This file updates policies, queries, agent options, controls, and software for hosts
+# assigned to the "Workstations" fleet.
 
-# To add another fleet, create a new file in the fleets/ directory and copy and paste the contents from this file.
-# Update the secret in the new file, then create the corresponding secret in GitHub Actions secrets.
-# Then add that secret to .github/workflows/workflow.yml as an env variable.
-# The secret name in the YAML file must match the secret name in GitHub Actions secrets.
+# To add another fleet, create a new file in the fleets/ directory and copy/paste the
+# contents from this file. Update the secret in the new file, create the corresponding
+# secret in GitHub Actions, then add it to .github/workflows/workflow.yml as an env var.
+# The secret name in the YAML file must match the secret name in GitHub Actions.
 
 agent_options:
-  path: ../lib/agent-options.yml
+  path: ../lib/all/agent-options/agent-options.yml
 controls:
   enable_disk_encryption: true
   setup_experience:
@@ -37,7 +38,7 @@ controls:
   ipados_updates:
     deadline: "2025-12-31"
     minimum_version: "26.0"
-name: ⚙️ Engineering
+name: "💻 Workstations"
 policies:
   - path: ../lib/windows/policies/all-windows-updates-installed.policies.yml
   - path: ../lib/linux/policies/check-fleet-desktop-extension-enabled.yml
@@ -48,9 +49,6 @@ queries:
   - path: ../lib/all/queries/collect-failed-login-attempts.queries.yml
 software:
   app_store_apps:
-    - app_store_id: "311421597"
-      self_service: true
-      setup_experience: true
     - app_store_id: "311421597"
       self_service: true
       setup_experience: true
@@ -129,9 +127,9 @@ software:
     # - path: ../lib/macos/software/user-alert-s2.sh
     #   display_name: User Alert Test
     #   self_service: true
-team_settings:
+settings:
   secrets:
-    - secret: "$FLEET_ENGINEERING_ENROLL_SECRET"
+    - secret: "$FLEET_WORKSTATIONS_ENROLL_SECRET"
   features:
     enable_host_users: true
     enable_software_inventory: true

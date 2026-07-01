@@ -36,6 +36,6 @@ controls:
 ```yaml
 # default.yml
 agent_options:
-  path: ./lib/agent-options.yml
+  path: ./lib/all/agent-options/agent-options.yml
 ```
 ##### And more! Show 'em what we have for 'em, Johnny!
