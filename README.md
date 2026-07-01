@@ -15,7 +15,7 @@ This is the current repository for ds' demo [Fleet](https://fleetdm.com) environ
 
 2. Added `FLEET_URL` and `FLEET_API_TOKEN` secrets to my new repository's secrets. Learned how [here](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) and from an in-person [GitOps workshop](https://www.eventbrite.com/cc/gitops-for-device-management-4104123). Set `FLEET_URL` to my Fleet instance's URL (ex. https://organization.fleet.com). [Created an API-only user](https://fleetdm.com/docs/using-fleet/fleetctl-cli#create-api-only-user) with the "GitOps" role and set `FLEET_API_TOKEN` to that user's API token.
 
-4. If you are using secrets to manage SSO metadata for Fleet SSO login or MDM SSO login, uncomment lines 22 and 23 in `gitops.sh`.
+4. If you are using secrets to manage SSO metadata for Fleet SSO login or MDM SSO login, uncomment the SSO metadata lines in `.github/fleet-gitops/gitops.sh`.
    - If you are using different variable names for your secrets, edit the appropriate line to reflect the correct variable name. 
 
 5. In GitHub, enabled the `Apply latest configuration to Fleet` GitHub Actions workflow, and first ran the workflow manually. Now, when anyone pushes a new commit to the default branch, the action will run and update Fleet. For pull requests, the workflow will do a dry run only.

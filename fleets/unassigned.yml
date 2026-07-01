@@ -1,8 +1,7 @@
 # Fleets are available in Fleet Premium.
 
-# This file updates policies, controls, and software for hosts assigned to "Unassigned."
-
-# To update queries and agent options for hosts assigned to "Unassigned," use the default.yml file.
+# This file updates policies, controls, and software for hosts assigned to "Unassigned"
+# (hosts not in any fleet). To update queries and agent options for these hosts, use default.yml.
 
 name: Unassigned
 policies:
