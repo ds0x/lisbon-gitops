@@ -9,23 +9,23 @@
 # The secret name in the YAML file must match the secret name in GitHub Actions.
 
 agent_options:
-  path: ../lib/all/agent-options/agent-options.yml
+  path: ../platforms/all/agent-options/agent-options.yml
 controls:
   scripts:
-    - path: ../lib/macos/scripts/remove-zoom-artifacts.script.sh
-    - path: ../lib/macos/scripts/set-dns-cloudflare.sh
+    - path: ../platforms/macos/scripts/remove-zoom-artifacts.script.sh
+    - path: ../platforms/macos/scripts/set-dns-cloudflare.sh
   macos_settings:
     custom_settings:
-      - path: ../lib/macos/configuration-profiles/disable-bluetooth-file-sharing.mobileconfig
+      - path: ../platforms/macos/configuration-profiles/disable-bluetooth-file-sharing.mobileconfig
 
 name: 🪪 New Hires
 policies:
-  - path: ../lib/macos/policies/dns-resolvers.policies.yml
+  - path: ../platforms/macos/policies/dns-resolvers.policies.yml
 queries:
-  - path: ../lib/all/queries/collect-failed-login-attempts.queries.yml
+  - path: ../platforms/all/queries/collect-failed-login-attempts.queries.yml
 software:
   packages:
-    - path: ../lib/macos/software/zoom.yml
+    - path: ../platforms/macos/software/zoom.yml
 settings:
   secrets:
     - secret: "$FLEET_NEW_HIRES_ENROLL_SECRET"

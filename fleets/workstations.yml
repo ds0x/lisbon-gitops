@@ -9,29 +9,29 @@
 # The secret name in the YAML file must match the secret name in GitHub Actions.
 
 agent_options:
-  path: ../lib/all/agent-options/agent-options.yml
+  path: ../platforms/all/agent-options/agent-options.yml
 controls:
   enable_disk_encryption: true
   setup_experience:
     macos_bootstrap_package: ""
     enable_end_user_authentication: false
     lock_end_user_info: false
-    apple_setup_assistant: ../lib/macos/enrollment-profiles/automatic-enrollment.dep.json
+    apple_setup_assistant: ../platforms/macos/enrollment-profiles/automatic-enrollment.dep.json
   scripts:
-    - path: ../lib/macos/scripts/remove-zoom-artifacts.script.sh
-    - path: ../lib/macos/scripts/user-alert.sh
-    - path: ../lib/macos/scripts/chrome-clear.sh
-    - path: ../lib/windows/scripts/default-exe-install-script.ps1
-    - path: ../lib/windows/scripts/rename-host.ps1
-    - path: ../lib/macos/scripts/nQ.sh
-    - path: ../lib/linux/scripts/install-fleet-desktop-required-extension.sh
-    - path: ../lib/linux/scripts/install-fleet-watchdog.sh
+    - path: ../platforms/macos/scripts/remove-zoom-artifacts.script.sh
+    - path: ../platforms/macos/scripts/user-alert.sh
+    - path: ../platforms/macos/scripts/chrome-clear.sh
+    - path: ../platforms/windows/scripts/default-exe-install-script.ps1
+    - path: ../platforms/windows/scripts/rename-host.ps1
+    - path: ../platforms/macos/scripts/nQ.sh
+    - path: ../platforms/linux/scripts/install-fleet-desktop-required-extension.sh
+    - path: ../platforms/linux/scripts/install-fleet-watchdog.sh
   macos_settings:
     custom_settings:
-      # - path: ../lib/macos/configuration-profiles/passcode-settings-ddm.json
+      # - path: ../platforms/macos/configuration-profiles/passcode-settings-ddm.json
   windows_settings:
     custom_settings:
-      - path: ../lib/windows/configuration-profiles/disallow-manual-unenrollment.xml
+      - path: ../platforms/windows/configuration-profiles/disallow-manual-unenrollment.xml
   macos_updates:
     deadline: "2025-10-31"
     minimum_version: "26.0"
@@ -40,13 +40,13 @@ controls:
     minimum_version: "26.0"
 name: "💻 Workstations"
 policies:
-  - path: ../lib/windows/policies/all-windows-updates-installed.policies.yml
-  - path: ../lib/linux/policies/check-fleet-desktop-extension-enabled.yml
-  - path: ../lib/linux/policies/disk-encryption-check.yml
-  - path: ../lib/linux/policies/disk-space-check.yml
-  - path: ../lib/linux/policies/fleet-watchdog-tamper-detected.yml
+  - path: ../platforms/windows/policies/all-windows-updates-installed.policies.yml
+  - path: ../platforms/linux/policies/check-fleet-desktop-extension-enabled.yml
+  - path: ../platforms/linux/policies/disk-encryption-check.yml
+  - path: ../platforms/linux/policies/disk-space-check.yml
+  - path: ../platforms/linux/policies/fleet-watchdog-tamper-detected.yml
 queries:
-  - path: ../lib/all/queries/collect-failed-login-attempts.queries.yml
+  - path: ../platforms/all/queries/collect-failed-login-attempts.queries.yml
 software:
   app_store_apps:
     - app_store_id: "311421597"
@@ -96,35 +96,35 @@ software:
     - slug: visual-studio-code/darwin
       self_service: true
   packages:
-    - path: ../lib/linux/scripts/install-libreoffice.sh
+    - path: ../platforms/linux/scripts/install-libreoffice.sh
       display_name: LibreOffice
       self_service: true
       labels_include_any:
         - Linux devices
-    - path: ../lib/linux/scripts/install-multipass.sh
+    - path: ../platforms/linux/scripts/install-multipass.sh
       display_name: Multipass
       self_service: true
       labels_include_any:
         - Linux devices
-    - path: ../lib/linux/scripts/install-chromium.sh
+    - path: ../platforms/linux/scripts/install-chromium.sh
       display_name: Chromium
       self_service: true
       labels_include_any:
         - Linux devices
-    - path: ../lib/linux/scripts/install-vscode.sh
+    - path: ../platforms/linux/scripts/install-vscode.sh
       display_name: Visual Studio Code
       self_service: true
       labels_include_any:
         - Linux devices
-    - path: ../lib/linux/software/vivaldi-amd64-deb.yml
+    - path: ../platforms/linux/software/vivaldi-amd64-deb.yml
       self_service: true
       labels_include_any:
         - Linux x86 devices
-    - path: ../lib/linux/software/vivaldi-arm64-deb.yml
+    - path: ../platforms/linux/software/vivaldi-arm64-deb.yml
       self_service: true
       labels_include_any:
         - Linux ARM devices
-    # - path: ../lib/macos/software/user-alert-s2.sh
+    # - path: ../platforms/macos/software/user-alert-s2.sh
     #   display_name: User Alert Test
     #   self_service: true
 settings:

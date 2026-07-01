@@ -7,15 +7,19 @@
 
 policies:
   # macOS policies
-  - paths: ./lib/macos/policies/*.yml
+  - paths: ./platforms/macos/policies/*.yml
   # Linux policies
-  # - paths: ./lib/linux/policies/*.yml
+  # - paths: ./platforms/linux/policies/*.yml
 queries:
-  - paths: ./lib/macos/queries/*.yml
-  - paths: ./lib/all/queries/*.yml
+  - paths: ./platforms/macos/queries/*.yml
+  - paths: ./platforms/all/queries/*.yml
+
+labels:
+  # Labels are managed via GitOps from the top-level labels/ folder.
+  - paths: ./labels/*.yml
 
 agent_options:
-  path: ./lib/all/agent-options/agent-options.yml
+  path: ./platforms/all/agent-options/agent-options.yml
   config:
     decorators:
       load:
@@ -33,8 +37,8 @@ org_settings:
     enable_software_inventory: true
   mdm:
     macos_setup:
-      macos_setup_assistant: ./lib/macos/enrollment-profiles/automatic-enrollment.dep.json
-    end_user_license_agreement: ./lib/macos/misc/eula.pdf
+      macos_setup_assistant: ./platforms/macos/enrollment-profiles/automatic-enrollment.dep.json
+    end_user_license_agreement: ./platforms/macos/misc/eula.pdf
     end_user_authentication:
       entity_id: fleet
       idp_name: Okta
@@ -50,7 +54,7 @@ controls: # This cannot be set here and in unassigned.yml
   windows_enabled_and_configured: true
   macos_settings:
     custom_settings:
-      - paths: ./lib/macos/configuration-profiles/*.mobileconfig
-      # - path: ./lib/macos/configuration-profiles/AppleScript-PPPC.mobileconfig
-      # - path: ./lib/ios/configuration-profiles/lock-screen-message.mobileconfig
-      - paths: ./lib/ios/declaration-profiles/*.json
+      - paths: ./platforms/macos/configuration-profiles/*.mobileconfig
+      # - path: ./platforms/macos/configuration-profiles/AppleScript-PPPC.mobileconfig
+      # - path: ./platforms/ios/configuration-profiles/lock-screen-message.mobileconfig
+      - paths: ./platforms/ios/declaration-profiles/*.json
