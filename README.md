@@ -11,7 +11,7 @@ This is the current repository for ds' demo [Fleet](https://fleetdm.com) environ
 
 ## How did I make this?
 
-1. Cloned the [GitHub repository](https://github.com/fleetdm/fleet-gitops), created my own GitHub repository, and pushed my clone to my new repo. After that, I've made changes and added several apps, integrations, queries, policies, and profiles.
+1. [Downloaded `fleetctl` from Fleet](https://fleetdm.com/download), ran `fleetctl new`, created my own GitHub repository, and pushed to my new repo. After that, I've made changes and added several apps, integrations, queries, policies, and profiles.
 
 2. Added `FLEET_URL` and `FLEET_API_TOKEN` secrets to my new repository's secrets. Learned how [here](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) and from an in-person [GitOps workshop](https://www.eventbrite.com/cc/gitops-for-device-management-4104123). Set `FLEET_URL` to my Fleet instance's URL (ex. https://organization.fleet.com). [Created an API-only user](https://fleetdm.com/docs/using-fleet/fleetctl-cli#create-api-only-user) with the "GitOps" role and set `FLEET_API_TOKEN` to that user's API token.
 
