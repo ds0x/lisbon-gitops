@@ -22,7 +22,7 @@ This is the current repository for ds' demo [Fleet](https://fleetdm.com) environ
 
 ## Configuration options
 
-For all configuration options, go to the [YAML files reference](https://fleetdm.com/docs/using-fleet/gitops) in the Fleet docs.
+For all configuration options, go to the [YAML files reference](https://fleetdm.com/docs/using-fleet/gitops) in the Fleet docs..
 
 ## Fleet UI
 
