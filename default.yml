@@ -33,6 +33,8 @@ org_settings:
   features:
     enable_host_users: true
     enable_software_inventory: true
+  secrets:
+    - secret: "$FLEET_GLOBAL_ENROLL_SECRET"
   mdm:
     macos_setup:
       macos_setup_assistant: ./platforms/macos/enrollment-profiles/automatic-enrollment.dep.json
