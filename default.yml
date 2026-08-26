@@ -30,8 +30,6 @@ org_settings:
     server_url: $FLEET_URL
   org_info:
     org_name: "Declarative Management (ds)"
-  # secrets:
-  #   - secret: "$FLEET_GLOBAL_ENROLL_SECRET"
   features:
     enable_host_users: true
     enable_software_inventory: true
