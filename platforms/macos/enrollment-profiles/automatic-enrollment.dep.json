@@ -5,6 +5,7 @@
   "is_mandatory": true,
   "is_mdm_removable": false,
   "auto_advance_setup": true,
+  "org_magic": "1",
   "skip_setup_items": [
     "Accessibility",
     "ActionButton",
