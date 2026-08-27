@@ -28,7 +28,7 @@ controls:
     - path: ../platforms/linux/scripts/install-fleet-watchdog.sh
   macos_settings:
     custom_settings:
-      - path: ../platforms/macos/configuration-profiles/com.apple.applicationaccess.mobileconfig
+      # - path: ../platforms/macos/configuration-profiles/com.apple.applicationaccess.mobileconfig
   windows_settings:
     custom_settings:
       - path: ../platforms/windows/configuration-profiles/disallow-manual-unenrollment.xml
